@@ -1,0 +1,41 @@
+﻿Product: Integration tests for WSO2 ESB cerner connector through REST API
+
+Pre-requisites:
+	-Maven 3.x
+	-Java 1.8
+
+Tested Platform:
+	- ubuntu 16.04
+	- WSO2 EI 6.3.0
+
+	Steps to follow in setting integration test.
+	
+	1. Download WSO2 EI 6.3.0 from official website.
+
+	2. Enable the following message formatter and message builder in the WSO2 EI axis2.xml
+		<messageFormatter contentType="application/json+fhir" class="org.apache.synapse.commons.json.JsonStreamFormatter"/>
+		<messageBuilder contentType="application/json+fhir" class="org.apache.synapse.commons.json.JsonStreamBuilder"/>
+
+	3. Extract the certificate from browser by navigating to the official cerner sandbox URL and Add the certificate obtained to "<EI_HOME>/repository/resources/security" folder and "{CERNER_HOME}/src/test/resources/keystores/products".
+
+	i)"<CERNER_HOME>/src/test/resources/keystores/products"
+
+	        Navigate to the above location from command prompt and execute
+            'keytool -importcert -file CERT_FILE_NAME -keystore wso2carbon.jks -alias "cernercert"' in command line to import cerner certificate in to keystore. Give "wso2carbon" as password.
+            NOTE : CERT_FILE_NAME is the file name which was extracted from cerner with  the extension, change it accordingly.
+            Remove the copied certificate.
+
+	ii) "WSO2-EI-6.3.0/repository/resources/security"
+
+           	Navigate to the above location from command prompt and execute 'keytool -importcert -file CERT_FILE_NAME -keystore client-truststore.jks -alias "cernercert"' in command line to 				import cerner certificate in to keystore. Give "wso2carbon" as password.
+            NOTE : CERT_FILE_NAME is the file name which was extracted from cerner with the extension, change it accordingly. Remove the copied certificate.
+			CERT_NAME is arbitrary name for the certificate.
+
+
+	4. Copy the EI 6.2.0 zip to the location "Connector_Home/repository/"
+
+	5. Update connector properties file "cerner.properties" located in "CERNER_HOME/src/test/resources/artifacts/ESB/connector/config/",
+	with relevent information
+	
+	6.Navigate to "{CERNER_HOME}" and run the following command.
+		$ mvn clean install -Dskip-tests=false

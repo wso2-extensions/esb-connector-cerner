@@ -1,0 +1,7 @@
+{
+  "base": "%s(base)",
+  "type": "%s(diagnosticReportType)",
+  "patient": "%s(patient)",
+  "subject": "%s(subjectPatient)"
+
+}

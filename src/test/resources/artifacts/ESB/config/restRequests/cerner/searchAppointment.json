@@ -1,0 +1,7 @@
+{
+  "base": "%s(base)",
+  "type": "%s(appointmentType)",
+  "date": "%s(appointmentDate)",
+  "patient": "%s(patient)"
+
+}

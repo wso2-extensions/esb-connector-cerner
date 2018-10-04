@@ -1,0 +1,7 @@
+{
+"base": "%s(base)",
+"type": "%s(conditionType)",
+"category": "%s(conditionCategory)",
+"patient": "%s(patient)"
+
+}

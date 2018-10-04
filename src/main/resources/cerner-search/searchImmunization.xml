@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+~  Copyright (c) 2018, WSO2 Inc. (http://wso2.com) All Rights Reserved.
+~
+~  WSO2 Inc. licenses this file to you under the Apache License,
+~  Version 2.0 (the "License"); you may not use this file except
+~  in compliance with the License.
+~  You may obtain a copy of the License at
+~
+~   http://www.apache.org/licenses/LICENSE-2.0
+~
+~  Unless required by applicable law or agreed to in writing,
+~  software distributed under the License is distributed on an
+~  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+~  KIND, either express or implied.  See the License for the
+~  specific language governing permissions and limitations
+~  under the License.
+-->
+<template name="searchImmunization" xmlns="http://ws.apache.org/ns/synapse">
+    <parameter name="earliestDate" description="Earliest date of the Date range"/>
+    <parameter name="latestDate" description="The Latest date of the Date range"/>
+    <parameter name="patient" description="A reference to a patient related which the RelatedPerson is associated"/>
+    <sequence>
+        <property name="uri.var.earliestDate" expression="$func:earliestDate"/>
+        <property name="uri.var.latestDate" expression="$func:latestDate"/>
+        <property name="uri.var.patient" expression="$func:patient"/>
+        <script language="js">
+            <![CDATA[
+            var earliestDate = mc.getProperty('uri.var.earliestDate');
+            var latestDate = mc.getProperty('uri.var.latestDate');
+            var patient = mc.getProperty('uri.var.patient');
+            urlQuery = '';
+            if  (patient != null && patient != "") {
+                urlQuery += 'patient=' + patient + '&';
+            }
+            if  (earliestDate != null && earliestDate != "") {
+                urlQuery += 'date=ge' + earliestDate + '&';
+            }
+            if  (latestDate != null && latestDate != "") {
+                urlQuery += 'date=le' + latestDate + '&';
+            }
+            if  (urlQuery != null && urlQuery  != "") {
+                urlQuery = '?' + urlQuery.toString().substring(0, urlQuery.toString().lastIndexOf("&"));
+            }
+            mc.setProperty('uri.var.urlQuery',urlQuery);
+            ]]>
+        </script>
+        <filter source="boolean($ctx:uri.var.patient)" regex="false">
+            <then>
+                <log category="ERROR" description="FAULT" level="custom">
+                    <property name="ERROR" value="No supported Mandatory search parameters provided"/>
+                </log>
+                <payloadFactory media-type="json">
+                    <format>{ "Error":{ "errorType":"InvalidParameter","details":"at patient parameters must be provided
+                        " } }
+                    </format>
+                    <args/>
+                </payloadFactory>
+                <header name="To" scope="default" action="remove"/>
+                <property name="RESPONSE" value="true" scope="default" type="STRING"/>
+                <property name="HTTP_SC" value="400" scope="axis2" type="STRING"/>
+                <send/>
+            </then>
+            <else>
+                <header name="Accept" scope="transport" value="application/json+fhir"/>
+                <call>
+                    <log category="INFO" level="full" separator=","/>
+                    <endpoint>
+                        <http method="Get"
+                              uri-template="{uri.var.base}/Immunization{+uri.var.urlQuery}"/>
+                    </endpoint>
+                </call>
+            </else>
+        </filter>
+    </sequence>
+</template>

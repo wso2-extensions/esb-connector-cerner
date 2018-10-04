@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+~  Copyright (c) 2018, WSO2 Inc. (http://wso2.com) All Rights Reserved.
+~
+~  WSO2 Inc. licenses this file to you under the Apache License,
+~  Version 2.0 (the "License"); you may not use this file except
+~  in compliance with the License.
+~  You may obtain a copy of the License at
+~
+~   http://www.apache.org/licenses/LICENSE-2.0
+~
+~  Unless required by applicable law or agreed to in writing,
+~  software distributed under the License is distributed on an
+~  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+~  KIND, either express or implied.  See the License for the
+~  specific language governing permissions and limitations
+~  under the License.
+-->
+<template name="searchMedicationOrder" xmlns="http://ws.apache.org/ns/synapse">
+    <parameter name="patient" description="The patient who has received the medication administration"/>
+    <parameter name="status" description="The status of the medication administration"/>
+    <parameter name="timingBoundsPeriod"
+               description="The date-time which should fall within the period the medication should be given to the patient"/>
+    <parameter name="earliestLastUpdate" description="The earliest of the update was made to the medication"/>
+    <parameter name="latestLastUpdate" description="The latest of the update was made to the medication"/>
+    <parameter name="count" description="The maximum number of results to return"/>
+
+    <sequence>
+        <property name="uri.var.patient" expression="$func:patient"/>
+        <property name="uri.var.status" expression="$func:status"/>
+        <property name="uri.var.timingBoundsPeriod" expression="$func:timingBoundsPeriod"/>
+        <property name="uri.var.earliestLastUpdate" expression="$func:earliestLastUpdate"/>
+        <property name="uri.var.latestLastUpdate" expression="$func:latestLastUpdate"/>
+        <property name="uri.var.count" expression="$func:count"/>
+        <script language="js">
+            <![CDATA[
+            var patient = mc.getProperty('uri.var.patient');
+            var status = mc.getProperty('uri.var.status');
+            var timingBoundsPeriod = mc.getProperty('uri.var.timingBoundsPeriod');
+            var earliestLastUpdate = mc.getProperty('uri.var.earliestLastUpdate');
+            var latestLastUpdate = mc.getProperty('uri.var.latestLastUpdate');
+            var count = mc.getProperty('uri.var.count');
+            urlQuery = '';
+
+            if  (patient != null && patient != "") {
+                urlQuery += 'patient=' + patient + '&';
+            }
+            if  (status != null && status != "") {
+                urlQuery += 'status=' + status + '&';
+            }
+            if  (timingBoundsPeriod != null && timingBoundsPeriod != "") {
+                urlQuery += '-timing-boundsPeriod=ge' + timingBoundsPeriod + '&';
+            }
+            if  (earliestLastUpdate != null && earliestLastUpdate != "") {
+                urlQuery += '_lastUpdated=ge' + earliestLastUpdate + '&';
+            }
+            if  (latestLastUpdate != null && latestLastUpdate != "") {
+                urlQuery += '_lastUpdated=le' + latestLastUpdate + '&';
+            }
+            if  (count != null && count != "") {
+                urlQuery += '_count=' + count + '&';
+            }
+            if  (urlQuery != null && urlQuery  != "") {
+                urlQuery = '?' + urlQuery.toString().substring(0, urlQuery.toString().lastIndexOf("&"));
+            }
+            mc.setProperty('uri.var.urlQuery',urlQuery);
+            ]]>
+        </script>
+        <filter source="boolean($ctx:uri.var.patient)" regex="false">
+            <then>
+                <log category="ERROR" description="FAULT" level="custom">
+                    <property name="ERROR" value="No supported Mandatory search parameters provided"/>
+                </log>
+                <payloadFactory media-type="json">
+                    <format>{ "Error":{ "errorType":"InvalidParameter","details":"at least the patient parameter must be
+                        provided " } }
+                    </format>
+                    <args/>
+                </payloadFactory>
+                <header name="To" scope="default" action="remove"/>
+                <property name="RESPONSE" value="true" scope="default" type="STRING"/>
+                <property name="HTTP_SC" value="400" scope="axis2" type="STRING"/>
+                <send/>
+            </then>
+            <else>
+                <header name="Accept" scope="transport" value="application/json+fhir"/>
+                <call>
+                    <log category="INFO" level="full" separator=","/>
+                    <endpoint>
+                        <http method="Get"
+                              uri-template="{uri.var.base}/MedicationOrder{+uri.var.urlQuery}"/>
+                    </endpoint>
+                </call>
+            </else>
+        </filter>
+    </sequence>
+</template>

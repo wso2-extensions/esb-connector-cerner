@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+~  Copyright (c) 2018, WSO2 Inc. (http://wso2.com) All Rights Reserved.
+~
+~  WSO2 Inc. licenses this file to you under the Apache License,
+~  Version 2.0 (the "License"); you may not use this file except
+~  in compliance with the License.
+~  You may obtain a copy of the License at
+~
+~   http://www.apache.org/licenses/LICENSE-2.0
+~
+~  Unless required by applicable law or agreed to in writing,
+~  software distributed under the License is distributed on an
+~  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+~  KIND, either express or implied.  See the License for the
+~  specific language governing permissions and limitations
+~  under the License.
+-->
+<template name="searchAppointment" xmlns="http://ws.apache.org/ns/synapse">
+    <parameter name="id" description="The logical resource id associated with the resource"/>
+    <parameter name="date" description="The Appointment date/time"/>
+    <parameter name="startDate" description="starting date of the care  plan"/>
+    <parameter name="endDate" description="end date of the carePlan"/>
+    <parameter name="patient" description="A single or comma separated list of Patient references."/>
+    <parameter name="practitioner" description="A single or comma separated list of Practitioner references."/>
+    <parameter name="location" description="A single or comma separated list of Location references."/>
+    <parameter name="status" description="A single or comma separated list of appointment statuses"/>
+    <parameter name="count" description="The maximum number of results to return."/>
+
+    <sequence>
+        <property name="uri.var.id" expression="$func:id"/>
+        <property name="uri.var.date" expression="$func:date"/>
+        <property name="uri.var.startDate" expression="$func:startDate"/>
+        <property name="uri.var.endDate" expression="$func:endDate"/>
+        <property name="uri.var.patient" expression="$func:patient"/>
+        <property name="uri.var.count" expression="$func:count"/>
+        <property name="uri.var.practitioner" expression="$func:practitioner"/>
+        <property name="uri.var.location" expression="$func:location"/>
+        <property name="uri.var.status" expression="$func:status"/>
+        <script language="js">
+            <![CDATA[
+            var id = mc.getProperty('uri.var.id');
+            var date = mc.getProperty('uri.var.date');
+            var startDate = mc.getProperty('uri.var.startDate');
+            var endDate = mc.getProperty('uri.var.endDate');
+            var patient = mc.getProperty('uri.var.patient');
+            var count = mc.getProperty('uri.var.count');
+            var practitioner = mc.getProperty('uri.var.practitioner');
+            var location = mc.getProperty('uri.var.location');
+            var status = mc.getProperty('uri.var.status');
+            urlQuery = '';
+            if  (id != null && id != "") {
+                urlQuery += '_id=' + id + '&';
+            }
+            if  (date != null && date != "") {
+                urlQuery += 'date=' + date + '&';
+            }
+            if  (startDate != null && startDate != "") {
+                urlQuery += 'date=ge' + startDate + '&';
+            }
+            if  (endDate != null && endDate != "") {
+                urlQuery += 'date=le' + endDate + '&';
+            }
+            if  (patient != null && patient != "") {
+                urlQuery += 'patient=' + patient + '&';
+            }
+            if  (count != null && count != "") {
+                urlQuery += '_count=' + count + '&';
+            }
+            if  (practitioner != null && practitioner != "") {
+                urlQuery += 'practitioner=' + practitioner + '&';
+            }
+            if  (location != null && location != "") {
+                urlQuery += 'location=' + location + '&';
+            }
+            if  (status != null && status != "") {
+                urlQuery += 'status=' + status + '&';
+            }
+            if  (urlQuery != null && urlQuery  != "") {
+                urlQuery = '?' + urlQuery.toString().substring(0, urlQuery.toString().lastIndexOf("&"));
+            }
+            mc.setProperty('uri.var.urlQuery',urlQuery);
+              ]]>
+        </script>
+        <header name="Accept" scope="transport" value="application/json+fhir"/>
+        <call>
+            <log category="INFO" level="full" separator=","/>
+            <endpoint>
+                <http method="Get"
+                      uri-template="{uri.var.base}/Appointment{+uri.var.urlQuery}"/>
+            </endpoint>
+        </call>
+    </sequence>
+</template>

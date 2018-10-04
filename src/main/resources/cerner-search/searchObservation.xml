@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+~  Copyright (c) 2018, WSO2 Inc. (http://wso2.com) All Rights Reserved.
+~
+~  WSO2 Inc. licenses this file to you under the Apache License,
+~  Version 2.0 (the "License"); you may not use this file except
+~  in compliance with the License.
+~  You may obtain a copy of the License at
+~
+~   http://www.apache.org/licenses/LICENSE-2.0
+~
+~  Unless required by applicable law or agreed to in writing,
+~  software distributed under the License is distributed on an
+~  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+~  KIND, either express or implied.  See the License for the
+~  specific language governing permissions and limitations
+~  under the License.
+-->
+<template name="searchObservation" xmlns="http://ws.apache.org/ns/synapse">
+    <parameter name="patient" description="The subject of the report if a patient."/>
+    <parameter name="subject" description="The subject (Patient) of the report. "/>
+    <parameter name="code" description="The code or component-code of the observation type"/>
+    <parameter name="startDate" description="start date when considering the observation range"/>
+    <parameter name="endDate" description="end date when considering the observation range"/>
+    <parameter name="initiallDateOfLastUpdate" description="First day in which the update has done"/>
+    <parameter name="EndDateOfLastUpdate" description="Last day in which the update has done"/>
+    <parameter name="category" description="The category of observations"/>
+    <parameter name="count" description="The maximum number of results to return per page. "/>
+
+    <sequence>
+        <property name="uri.var.patient" expression="$func:patient"/>
+        <property name="uri.var.subject" expression="$func:subject"/>
+        <property name="uri.var.code" expression="$func:code"/>
+        <property name="uri.var.startDate" expression="$func:startDate"/>
+        <property name="uri.var.endDate" expression="$func:endDate"/>
+        <property name="uri.var.initialDateOfLastUpdate" expression="$func:initialDateOfLastUpdate"/>
+        <property name="uri.var.EndDateOfLastUpdate" expression="$func:EndDateOfLastUpdate"/>
+        <property name="uri.var.category" expression="$func:category"/>
+        <property name="uri.var.count" expression="$func:count"/>
+        <script language="js">
+            <![CDATA[
+            var patient = mc.getProperty('uri.var.patient');
+            var subject = mc.getProperty('uri.var.subject');
+            var code = mc.getProperty('uri.var.code');
+            var startDate = mc.getProperty('uri.var.startDate');
+            var endDate = mc.getProperty('uri.var.endDate');
+            var initialDateOfLastUpdate = mc.getProperty('uri.var.initialDateOfLastUpdate');
+            var EndDateOfLastUpdate = mc.getProperty('uri.var.EndDateOfLastUpdate');
+            var category = mc.getProperty('uri.var.category');
+            var count = mc.getProperty('uri.var.count');
+            urlQuery = '';
+            if  (patient != null && patient != "") {
+                urlQuery += 'patient=' + patient + '&';
+            }
+            if  (subject != null && subject != "") {
+                urlQuery += 'subject=' + subject + '&';
+            }
+            if  (code != null && code != "") {
+                urlQuery += 'code=' + code + '&';
+            }
+            if  (startDate != null && startDate != "") {
+                urlQuery += 'date=ge' + startDate + '&';
+            }
+            if  (endDate != null && endDate != "") {
+                urlQuery += 'date=lt' + endDate + '&';
+            }
+            if  (initialDateOfLastUpdate != null && initialDateOfLastUpdate != "") {
+                urlQuery += '_lastUpdated=ge' + initialDateOfLastUpdate + '&';
+            }
+            if  (EndDateOfLastUpdate != null && EndDateOfLastUpdate != "") {
+                urlQuery += '_lastUpdated=lt' + EndDateOfLastUpdate + '&';
+            }
+            if  (category != null && category != "") {
+                urlQuery += 'category=' + category + '&';
+            }
+            if  (count != null && count != "") {
+                urlQuery += '_count=' + count + '&';
+            }
+            if  (urlQuery != null && urlQuery  != "") {
+                urlQuery = '?' + urlQuery.toString().substring(0, urlQuery.toString().lastIndexOf("&"));
+            }
+            mc.setProperty('uri.var.urlQuery',urlQuery);
+              ]]>
+        </script>
+        <filter source="boolean($ctx:uri.var.subject) or boolean($ctx:uri.var.patient)" regex="false">
+            <then>
+                <log category="ERROR" description="FAULT" level="custom">
+                    <property name="ERROR" value="No supported Mandatory search parameters provided"/>
+                </log>
+                <payloadFactory media-type="json">
+                    <format>{ "Error":{ "errorType":"InvalidParameter","details":"at least one of the subject and
+                        patient
+                        parameters must be provided " } }
+                    </format>
+                    <args/>
+                </payloadFactory>
+                <header name="To" scope="default" action="remove"/>
+                <property name="RESPONSE" value="true" scope="default" type="STRING"/>
+                <property name="HTTP_SC" value="400" scope="axis2" type="STRING"/>
+                <send/>
+            </then>
+            <else>
+                <header name="Accept" scope="transport" value="application/json+fhir"/>
+                <call>
+                    <log category="INFO" level="full" separator=","/>
+                    <endpoint>
+                        <http method="Get"
+                              uri-template="{uri.var.base}/Observation{+uri.var.urlQuery}"/>
+                    </endpoint>
+                </call>
+            </else>
+        </filter>
+    </sequence>
+</template>

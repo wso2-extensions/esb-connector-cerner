@@ -1,0 +1,8 @@
+{
+  "base": "%s(base)",
+  "type": "%s(goalType)",
+  "patient": "%s(patient)",
+  "startDate": "%s(startDate)",
+  "endDate": "%s(endDate)"
+
+}

@@ -1,0 +1,6 @@
+{
+  "base": "%s(base)",
+  "type": "%s(relatedPersonType)",
+  "patient": "%s(patient)"
+
+}

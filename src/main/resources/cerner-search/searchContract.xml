@@ -24,7 +24,6 @@
     <parameter name="subject" description="Who care plan is for."/>
     <parameter name="includeActor" description="Actor resource entries to be returned as part of the bundle"/>
     <parameter name="includePatient" description="Patient resource entries to be returned as part of the bundle"/>
-
     <sequence>
         <property name="uri.var.id" expression="$func:id"/>
         <property name="uri.var.actor" expression="$func:actor"/>

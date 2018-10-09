@@ -20,7 +20,6 @@
     <parameter name="patient" description="A reference to the patient that is the subject of the CCD."/>
     <parameter name="start" description="The start of the date range for which the CCD is to be generated"/>
     <parameter name="end" description="The end of the date range for which the CCD is to be generated."/>
-
     <sequence>
         <property name="uri.var.patient" expression="$func:patient"/>
         <property name="uri.var.start" expression="$func:start"/>

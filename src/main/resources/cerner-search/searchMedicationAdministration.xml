@@ -25,7 +25,6 @@
     <parameter name="startEffectiveTime" description="The date/time when the administration was performed."/>
     <parameter name="endEffectiveTime" description="The date/time when the administration was performed."/>
     <parameter name="count" description="The maximum number of results to return"/>
-
     <sequence>
         <property name="uri.var.id" expression="$func:id"/>
         <property name="uri.var.patient" expression="$func:patient"/>
@@ -46,7 +45,6 @@
             var endEffectiveTime = mc.getProperty('uri.var.endEffectiveTime');
             var count = mc.getProperty('uri.var.count');
             urlQuery = '';
-
             if  (id != null && id != "") {
                 urlQuery += '_id=' + id + '&';
             }

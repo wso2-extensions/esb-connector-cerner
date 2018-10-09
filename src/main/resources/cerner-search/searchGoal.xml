@@ -20,10 +20,9 @@
     <parameter name="id" description="The logical resource id associated with the resource."/>
     <parameter name="subject"
                description="The subject who this goal is intended for. Must represent a Patient resource"/>
-    <parameter name="startDate" description="start date of the carePlan"/>
-    <parameter name="endDate" description="end date of the carePlan"/>
+    <parameter name="startDate" description="start date of the goal"/>
+    <parameter name="endDate" description="end date of the goal"/>
     <parameter name="patient" description="Who care plan is for."/>
-
     <sequence>
         <property name="uri.var.id" expression="$func:id"/>
         <property name="uri.var.startDate" expression="$func:startDate"/>

@@ -33,7 +33,6 @@
         <property name="uri.var.createdEarliest" expression="$func:createdEarliest"/>
         <property name="uri.var.createdLatest" expression="$func:createdLatest"/>
         <property name="uri.var.count" expression="$func:count"/>
-
         <script language="js">
             <![CDATA[
             var id = mc.getProperty('uri.var.id');

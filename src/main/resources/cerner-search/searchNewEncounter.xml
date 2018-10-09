@@ -18,7 +18,7 @@
 -->
 <template name="searchNewEncounter" xmlns="http://ws.apache.org/ns/synapse">
     <parameter name="id" description="The logical resource id associated with the resource."/>
-    <parameter name="patient" description="The patient on whom the device is affixed"/>
+    <parameter name="patient" description="The patient present at the encounter"/>
     <sequence>
         <property name="uri.var.id" expression="$func:id"/>
         <property name="uri.var.patient" expression="$func:patient"/>

@@ -28,7 +28,6 @@
     <parameter name="gender" description="The gender of the patient."/>
     <parameter name="addressPostalCode" description="The postal code in the address details of the patient"/>
     <parameter name="count" description="The maximum number of results to return."/>
-
     <sequence>
         <property name="uri.var.id" expression="$func:id"/>
         <property name="uri.var.identifier" expression="$func:identifier"/>

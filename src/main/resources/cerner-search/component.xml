@@ -114,6 +114,5 @@
             <file>searchPractitioner.xml</file>
             <description>The Practitioner resource provides information about a person formally involved in the care of a patient on behalf of a healthcare facility.</description>
         </component>
-
     </subComponents>
 </component>

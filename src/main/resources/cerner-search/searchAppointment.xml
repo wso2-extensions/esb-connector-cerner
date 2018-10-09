@@ -19,14 +19,13 @@
 <template name="searchAppointment" xmlns="http://ws.apache.org/ns/synapse">
     <parameter name="id" description="The logical resource id associated with the resource"/>
     <parameter name="date" description="The Appointment date/time"/>
-    <parameter name="startDate" description="starting date of the care  plan"/>
-    <parameter name="endDate" description="end date of the carePlan"/>
+    <parameter name="startDate" description="starting date of the appointment"/>
+    <parameter name="endDate" description="end date of the appointment"/>
     <parameter name="patient" description="A single or comma separated list of Patient references."/>
     <parameter name="practitioner" description="A single or comma separated list of Practitioner references."/>
     <parameter name="location" description="A single or comma separated list of Location references."/>
     <parameter name="status" description="A single or comma separated list of appointment statuses"/>
     <parameter name="count" description="The maximum number of results to return."/>
-
     <sequence>
         <property name="uri.var.id" expression="$func:id"/>
         <property name="uri.var.date" expression="$func:date"/>

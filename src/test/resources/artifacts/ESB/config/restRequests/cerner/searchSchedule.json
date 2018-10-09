@@ -2,5 +2,4 @@
   "base": "%s(base)",
   "type": "%s(scheduleType)",
   "id": "%s(scheduleId)"
-
 }

@@ -19,7 +19,6 @@
 <template name="update" xmlns="http://ws.apache.org/ns/synapse">
     <parameter name="type" description="The type of the resource"/>
     <parameter name="id" description="The id of the resource"/>
-
     <sequence>
         <property name="uri.var.type" expression="$func:type"/>
         <property name="uri.var.id" expression="$func:id"/>

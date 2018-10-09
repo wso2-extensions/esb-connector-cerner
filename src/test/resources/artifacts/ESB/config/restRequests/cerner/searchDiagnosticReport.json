@@ -3,5 +3,4 @@
   "type": "%s(diagnosticReportType)",
   "patient": "%s(patient)",
   "subject": "%s(subjectPatient)"
-
 }

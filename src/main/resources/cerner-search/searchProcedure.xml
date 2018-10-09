@@ -18,8 +18,8 @@
 -->
 <template name="searchProcedure" xmlns="http://ws.apache.org/ns/synapse">
     <parameter name="id" description="The logical resource id associated with the resource."/>
-    <parameter name="patient" description="Who the sensitivity is for."/>
-    <parameter name="subject" description="Certainty of the allergy or intolerance."/>
+    <parameter name="patient" description="The patient subject of the Procedure"/>
+    <parameter name="subject" description="The subject of the Procedure."/>
     <parameter name="startDate" description="initial date /starting date of the procedure"/>
     <parameter name="endDate" description="end Date of the procedure"/>
     <sequence>

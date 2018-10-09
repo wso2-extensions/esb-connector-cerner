@@ -24,7 +24,6 @@
     <parameter name="earliestLastUpdate" description="The earliest of the update was made to the medication"/>
     <parameter name="latestLastUpdate" description="The latest of the update was made to the medication"/>
     <parameter name="count" description="The maximum number of results to return"/>
-
     <sequence>
         <property name="uri.var.patient" expression="$func:patient"/>
         <property name="uri.var.status" expression="$func:status"/>
@@ -41,7 +40,6 @@
             var latestLastUpdate = mc.getProperty('uri.var.latestLastUpdate');
             var count = mc.getProperty('uri.var.count');
             urlQuery = '';
-
             if  (patient != null && patient != "") {
                 urlQuery += 'patient=' + patient + '&';
             }

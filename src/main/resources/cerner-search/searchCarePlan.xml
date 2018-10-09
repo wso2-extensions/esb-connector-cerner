@@ -25,7 +25,6 @@
     <parameter name="count" description="Number of results per page."/>
     <parameter name="category" description="The scope of care plan being searched for"/>
     <parameter name="context" description="The encounter id of the care plan."/>
-
     <sequence>
         <property name="uri.var.id" expression="$func:id"/>
         <property name="uri.var.startDate" expression="$func:startDate"/>

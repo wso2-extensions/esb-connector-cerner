@@ -38,18 +38,13 @@ public class cernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
 
     @BeforeClass(alwaysRun = true)
     public void setEnvironment() throws Exception {
-
         String connectorName = System.getProperty("connector_name") + "-connector-" +
                 System.getProperty("connector_version") + ".zip";
         init(connectorName);
-
         eiRequestHeadersMap.put("Accept-Charset", "UTF-8");
         eiRequestHeadersMap.put("Content-Type", "application/json+fhir");
         eiRequestHeadersMap.put("Accept", "application/json+fhir");
-
         apiRequestHeadersMap.putAll(eiRequestHeadersMap);
-
-
     }
 
 

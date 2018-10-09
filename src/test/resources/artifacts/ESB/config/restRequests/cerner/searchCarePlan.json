@@ -3,5 +3,4 @@
   "type": "%s(carePlanType)",
   "category": "%s(carePlanCategory)",
   "patient": "%s(patient)"
-
 }

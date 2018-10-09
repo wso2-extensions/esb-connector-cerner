@@ -26,7 +26,6 @@
     <parameter name="EndDateOfLastUpdate" description="Last day in which the update has done"/>
     <parameter name="category" description="The category of observations"/>
     <parameter name="count" description="The maximum number of results to return per page. "/>
-
     <sequence>
         <property name="uri.var.patient" expression="$func:patient"/>
         <property name="uri.var.subject" expression="$func:subject"/>

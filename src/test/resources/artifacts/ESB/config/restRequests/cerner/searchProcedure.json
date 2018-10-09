@@ -2,5 +2,4 @@
   "base": "%s(base)",
   "type": "%s(procedureType)",
   "patient": "%s(patient)"
-
 }

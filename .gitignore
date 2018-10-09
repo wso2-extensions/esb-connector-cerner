@@ -24,3 +24,7 @@ hs_err_pid*
 
 repository/wso2ei-6.3.0.zip
 target/
+.idea/
+
+org.wso2.carbon.esb.connector.cerner.iml
+repository/sandboxcernercom.crt

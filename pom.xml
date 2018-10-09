@@ -26,7 +26,7 @@
 
     <properties>
         <connector.name>cerner</connector.name>
-        <integration.base.version>1.0.2</integration.base.version>
+        <integration.base.version>1.0.3</integration.base.version>
         <product.ei.version>6.3.0</product.ei.version>
         <carbon.kernel.version>4.4.17</carbon.kernel.version>
         <automation.framework.utils.version>4.4.2</automation.framework.utils.version>
@@ -42,6 +42,9 @@
         <rampart.wso2.version>1.6.1.wso2v18</rampart.wso2.version>
         <skip-tests>false</skip-tests>
         <test.framework.version>4.2.0</test.framework.version>
+        <httpclient.version>4.3.6</httpclient.version>
+        <carbon.mediation.library.connectors.version>4.1.0</carbon.mediation.library.connectors.version>
+        <org.json.version>20080701</org.json.version>
     </properties>
 
     <dependencies>
@@ -69,9 +72,8 @@
         <dependency>
             <groupId>org.wso2.carbon</groupId>
             <artifactId>org.wso2.carbon.mediation.library.connectors.core</artifactId>
-            <version>4.1.0</version>
+            <version>${carbon.mediation.library.connectors.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.wso2.carbon.automation</groupId>
             <artifactId>org.wso2.carbon.automation.extensions</artifactId>
@@ -88,7 +90,6 @@
             </exclusions>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.wso2.carbon.automationutils</groupId>
             <artifactId>org.wso2.carbon.integration.common.admin.client</artifactId>
@@ -110,16 +111,13 @@
             <groupId>org.wso2.carbon.automationutils</groupId>
             <artifactId>org.wso2.carbon.integration.common.tests</artifactId>
             <version>${automation.framework.utils.version}</version>
-            <!--<scope>compile</scope>-->
         </dependency>
-
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.wso2.carbon.mediation</groupId>
             <artifactId>org.wso2.carbon.connector.core</artifactId>
@@ -163,18 +161,6 @@
             <version>${automation.framework.version}</version>
             <scope>test</scope>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>org.wso2.carbon.automation</groupId>-->
-            <!--<artifactId>org.wso2.carbon.automation.api</artifactId>-->
-            <!--<version>${test.framework.version}</version>-->
-            <!--<scope>test</scope>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.wso2.carbon.automation</groupId>-->
-            <!--<artifactId>org.wso2.carbon.automation.core</artifactId>-->
-            <!--<version>${test.framework.version}</version>-->
-            <!--<scope>test</scope>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>org.wso2.carbon</groupId>
             <artifactId>org.wso2.carbon.logging</artifactId>
@@ -183,12 +169,12 @@
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpmime</artifactId>
-            <version>4.3.6</version>
+            <version>${httpclient.version}</version>
         </dependency>
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-            <version>20080701</version>
+            <version>${org.json.version}</version>
         </dependency>
         <dependency>
             <groupId>org.wso2.ei</groupId>
@@ -338,7 +324,6 @@
                         </property>
                     </systemProperties>
                     <workingDirectory>${basedir}/target</workingDirectory>
-                    <!--<skipTests>${skip-tests}</skipTests>-->
                 </configuration>
             </plugin>
             <plugin>

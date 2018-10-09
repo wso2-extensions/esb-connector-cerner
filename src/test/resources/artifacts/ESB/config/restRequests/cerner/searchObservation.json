@@ -3,5 +3,4 @@
   "type": "%s(observationType)",
   "_lastUpdated": "%s(initialDateOfLastUpdate)",
   "patient": "%s(patient)"
-
 }

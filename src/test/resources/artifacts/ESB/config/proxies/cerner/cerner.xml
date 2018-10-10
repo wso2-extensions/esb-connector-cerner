@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+~  Copyright (c) 2018, WSO2 Inc. (http://wso2.com) All Rights Reserved.
+~
+~  WSO2 Inc. licenses this file to you under the Apache License,
+~  Version 2.0 (the "License"); you may not use this file except
+~  in compliance with the License.
+~  You may obtain a copy of the License at
+~
+~   http://www.apache.org/licenses/LICENSE-2.0
+~
+~  Unless required by applicable law or agreed to in writing,
+~  software distributed under the License is distributed on an
+~  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+~  KIND, either express or implied.  See the License for the
+~  specific language governing permissions and limitations
+~  under the License.
+-->
+<proxy xmlns="http://ws.apache.org/ns/synapse" name="cerner"
+       statistics="disable" trace="disable" transports="https,http" startOnLoad="true">
+    <target>
+        <inSequence>
+            <property name="base" expression="json-eval($.base)"/>
+            <property name="type" expression="json-eval($.type)"/>
+            <property name="id" expression="json-eval($.id)"/>
+            <property name="status" expression="json-eval($.status)"/>
+            <property name="patient" expression="json-eval($.patient)"/>
+            <property name="date" expression="json-eval($.date)"/>
+            <property name="category" expression="json-eval($.category)"/>
+            <property name="subject" expression="json-eval($.subject)"/>
+            <property name="startDate" expression="json-eval($.startDate)"/>
+            <property name="endDate" expression="json-eval($.endDate)"/>
+            <property name="initialDateOfLastUpdate" expression="json-eval($.initialDateOfLastUpdate)"/>
+            <property name="given" expression="json-eval($.given)"/>
+            <property name="birthdate" expression="json-eval($.birthdate)"/>
+            <cerner.init>
+                <base>{$ctx:base}</base>
+            </cerner.init>
+            <log category="INFO" level="full" separator=","/>
+            <switch source="get-property('transport', 'Action')">
+                <case regex="urn:getConformance">
+                    <cerner.getConformance/>
+                    <log category="INFO" level="full" separator=","/>
+                </case>
+                <case regex="urn:retrieveById">
+                    <cerner.retrieveById>
+                        <type>{$ctx:type}</type>
+                        <id>{$ctx:id}</id>
+                    </cerner.retrieveById>
+                </case>
+                <case regex="urn:searchAllergyIntolerance">
+                    <cerner.searchAllergyIntolerance>
+                        <type>{$ctx:type}</type>
+                        <patient>{$ctx:patient}</patient>
+                        <status>{$ctx:status}</status>
+                    </cerner.searchAllergyIntolerance>
+                </case>
+                <case regex="urn:searchAppointment">
+                    <cerner.searchAppointment>
+                        <type>{$ctx:type}</type>
+                        <date>{$ctx:date}</date>
+                        <patient>{$ctx:patient}</patient>
+                    </cerner.searchAppointment>
+                </case>
+                <case regex="urn:searchBinary">
+                    <cerner.searchBinary>
+                        <type>{$ctx:type}</type>
+                        <patient>{$ctx:patient}</patient>
+                    </cerner.searchBinary>
+                </case>
+                <case regex="urn:searchCarePlan">
+                    <cerner.searchCarePlan>
+                        <type>{$ctx:type}</type>
+                        <patient>{$ctx:patient}</patient>
+                        <category>{$ctx:category}</category>
+                    </cerner.searchCarePlan>
+                </case>
+                <case regex="urn:searchCondition">
+                    <cerner.searchCondition>
+                        <type>{$ctx:type}</type>
+                        <patient>{$ctx:patient}</patient>
+                        <category>{$ctx:category}</category>
+                    </cerner.searchCondition>
+                </case>
+                <case regex="urn:searchContract">
+                    <cerner.searchContract>
+                        <type>{$ctx:type}</type>
+                        <subject>{$ctx:subject}</subject>
+                    </cerner.searchContract>
+                </case>
+                <case regex="urn:searchDevice">
+                    <cerner.searchDevice>
+                        <type>{$ctx:type}</type>
+                        <patient>{$ctx:patient}</patient>
+                    </cerner.searchDevice>
+                </case>
+                <case regex="urn:searchDiagnosticReport">
+                    <cerner.searchDiagnosticReport>
+                        <type>{$ctx:type}</type>
+                        <patient>{$ctx:patient}</patient>
+                        <subject>{$ctx:subject}</subject>
+                    </cerner.searchDiagnosticReport>
+                </case>
+                <case regex="urn:searchDocumentReference">
+                    <cerner.searchDocumentReference>
+                        <type>{$ctx:type}</type>
+                        <patient>{$ctx:patient}</patient>
+                    </cerner.searchDocumentReference>
+                </case>
+                <case regex="urn:searchGoal">
+                    <cerner.searchGoal>
+                        <type>{$ctx:type}</type>
+                        <patient>{$ctx:patient}</patient>
+                        <startDate>{$ctx:startDate}</startDate>
+                        <endDate>{$ctx:endDate}</endDate>
+                    </cerner.searchGoal>
+                </case>
+                <case regex="urn:searchImmunization">
+                    <cerner.searchImmunization>
+                        <type>{$ctx:type}</type>
+                        <patient>{$ctx:patient}</patient>
+                    </cerner.searchImmunization>
+                </case>
+                <case regex="urn:searchMedicationAdministration">
+                    <cerner.searchMedicationAdministration>
+                        <type>{$ctx:type}</type>
+                        <patient>{$ctx:patient}</patient>
+                    </cerner.searchMedicationAdministration>
+                </case>
+                <case regex="urn:searchMedicationOrder">
+                    <cerner.searchMedicationOrder>
+                        <type>{$ctx:type}</type>
+                        <patient>{$ctx:patient}</patient>
+                    </cerner.searchMedicationOrder>
+                </case>
+                <case regex="urn:searchMedicationStatement">
+                    <cerner.searchMedicationStatement>
+                        <type>{$ctx:type}</type>
+                        <patient>{$ctx:patient}</patient>
+                        <status>{$ctx:status}</status>
+                    </cerner.searchMedicationStatement>
+                </case>
+                <case regex="urn:searchNewEncounter">
+                    <cerner.searchNewEncounter>
+                        <type>{$ctx:type}</type>
+                        <patient>{$ctx:patient}</patient>
+                    </cerner.searchNewEncounter>
+                </case>
+                <case regex="urn:searchObservation">
+                    <cerner.searchObservation>
+                        <type>{$ctx:type}</type>
+                        <patient>{$ctx:patient}</patient>
+                        <initialDateOfLastUpdate>{$ctx:initialDateOfLastUpdate}</initialDateOfLastUpdate>
+                    </cerner.searchObservation>
+                </case>
+                <case regex="urn:searchPatient">
+                    <cerner.searchPatient>
+                        <type>{$ctx:type}</type>
+                        <given>{$ctx:given}</given>
+                        <birthdate>{$ctx:birthdate}</birthdate>
+                    </cerner.searchPatient>
+                </case>
+                <case regex="urn:searchPractitioner">
+                    <cerner.searchPractitioner>
+                        <type>{$ctx:type}</type>
+                        <id>{$ctx:id}</id>
+                    </cerner.searchPractitioner>
+                </case>
+                <case regex="urn:searchProcedure">
+                    <cerner.searchProcedure>
+                        <type>{$ctx:type}</type>
+                        <patient>{$ctx:patient}</patient>
+                    </cerner.searchProcedure>
+                </case>
+                <case regex="urn:searchRelatedPerson">
+                    <cerner.searchRelatedPerson>
+                        <type>{$ctx:type}</type>
+                        <patient>{$ctx:patient}</patient>
+                    </cerner.searchRelatedPerson>
+                </case>
+                <case regex="urn:searchSchedule">
+                    <cerner.searchSchedule>
+                        <type>{$ctx:type}</type>
+                        <id>{$ctx:id}</id>
+                    </cerner.searchSchedule>
+                </case>
+                <case regex="urn:searchSlot">
+                    <cerner.searchSlot>
+                        <type>{$ctx:type}</type>
+                        <id>{$ctx:id}</id>
+                    </cerner.searchSlot>
+                </case>
+                <case regex="urn:searchById">
+                    <cerner.searchById>
+                        <type>{$ctx:type}</type>
+                        <id>{$ctx:id}</id>
+                    </cerner.searchById>
+                </case>
+            </switch>
+            <respond/>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </target>
+    <parameter name="serviceType">proxy</parameter>
+    <description/>
+</proxy>

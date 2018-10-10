@@ -24,6 +24,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.wso2.connector.integration.test.base.ConnectorIntegrationTestBase;
 import org.wso2.connector.integration.test.base.RestResponse;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -47,19 +48,17 @@ public class cernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
         apiRequestHeadersMap.putAll(eiRequestHeadersMap);
     }
 
-
     /**
      * Positive test case for getConformance method with mandatory parameters.
      */
     @Test(enabled = true, description = "cerner {getConformance} integration test with mandatory parameters.")
     public void getConformanceWithMandatoryParameters() throws IOException, JSONException {
-        String methodName = "getConformance";
-        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(getProxyServiceURLHttp(methodName), "POST", eiRequestHeadersMap, "getConformance.json");
+        eiRequestHeadersMap.put("Action", "urn:getConformance");
+        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(proxyUrl, "POST", eiRequestHeadersMap, "getConformance.json");
         Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
         final String apiEndPoint = connectorProperties.getProperty("base") + "/metadata";
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
         Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
-
     }
 
     /**
@@ -67,14 +66,12 @@ public class cernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
      */
     @Test(enabled = true, description = "cerner {readSpecificResourceById} integration test with Mandatory parameters.")
     public void readSpecificResourceByIdWithMandatoryParameters() throws IOException, JSONException {
-        String methodName = "readSpecificResourceById";
-        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(getProxyServiceURLHttp(methodName), "POST", eiRequestHeadersMap, "readSpecificResourceById.json");
+        eiRequestHeadersMap.put("Action", "urn:retrieveById");
+        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(proxyUrl, "POST", eiRequestHeadersMap, "readSpecificResourceById.json");
         final String apiEndPoint = connectorProperties.getProperty("base") + "/" + connectorProperties.getProperty("type") + "/" + connectorProperties.getProperty("id");
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
         Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
         Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
-        Assert.assertEquals(eiRestResponse.getBody().getJSONArray("name").getJSONObject(0).getString("use"),
-                apiRestResponse.getBody().getJSONArray("name").getJSONObject(0).getString("use"));
     }
 
     /**
@@ -82,13 +79,12 @@ public class cernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
      */
     @Test(enabled = true, description = "cerner {searchSpecificResourceById} integration test with Mandatory parameters.")
     public void searchSpecificResourceByIdWithMandatoryParameters() throws IOException, JSONException {
-        String methodName = "searchSpecificResourceById";
-        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(getProxyServiceURLHttp(methodName), "POST", eiRequestHeadersMap, "searchSpecificResourceById.json");
+        eiRequestHeadersMap.put("Action", "urn:searchById");
+        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(proxyUrl, "POST", eiRequestHeadersMap, "searchSpecificResourceById.json");
         final String apiEndPoint = connectorProperties.getProperty("base") + "/" + connectorProperties.getProperty("type") + "?_id=" + connectorProperties.getProperty("id");
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
         Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
         Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
-
     }
 
     /**
@@ -96,14 +92,13 @@ public class cernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
      */
     @Test(enabled = true, description = "cerner {searchPatient} integration test with Optional parameters.")
     public void searchPatientWithOptionalParameters() throws IOException, JSONException {
-        String methodName = "searchPatient";
-        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(getProxyServiceURLHttp(methodName), "POST", eiRequestHeadersMap, "searchPatient.json");
+        eiRequestHeadersMap.put("Action", "urn:searchPatient");
+        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(proxyUrl, "POST", eiRequestHeadersMap, "searchPatient.json");
         final String apiEndPoint = connectorProperties.getProperty("base") + "/" + connectorProperties.getProperty("type") +
                 "?given=" + connectorProperties.getProperty("patientGivenName") + "&birthdate=eq" + connectorProperties.getProperty("patientBirthdate");
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
         Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
         Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
-
     }
 
     /**
@@ -111,14 +106,13 @@ public class cernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
      */
     @Test(enabled = true, description = "cerner {searchAppointment} integration test with Optional parameters.")
     public void searchAppointmentWithOptionalParameters() throws IOException, JSONException {
-        String methodName = "searchAppointment";
-        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(getProxyServiceURLHttp(methodName), "POST", eiRequestHeadersMap, "searchAppointment.json");
+        eiRequestHeadersMap.put("Action", "urn:searchAppointment");
+        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(proxyUrl, "POST", eiRequestHeadersMap, "searchAppointment.json");
         final String apiEndPoint = connectorProperties.getProperty("base") + "/" + connectorProperties.getProperty("appointmentType") +
                 "?patient=" + connectorProperties.getProperty("patient") + "&date=" + connectorProperties.getProperty("appointmentDate");
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
         Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
         Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
-
     }
 
     /**
@@ -126,14 +120,13 @@ public class cernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
      */
     @Test(enabled = true, description = "cerner {searchCondition} integration test with Optional parameters.")
     public void searchConditionWithOptionalParameters() throws IOException, JSONException {
-        String methodName = "searchCondition";
-        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(getProxyServiceURLHttp(methodName), "POST", eiRequestHeadersMap, "searchCondition.json");
+        eiRequestHeadersMap.put("Action", "urn:searchCondition");
+        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(proxyUrl, "POST", eiRequestHeadersMap, "searchCondition.json");
         final String apiEndPoint = connectorProperties.getProperty("base") + "/" + connectorProperties.getProperty("conditionType") +
                 "?patient=" + connectorProperties.getProperty("patient") + "&category=" + connectorProperties.getProperty("conditionCategory");
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
         Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
         Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
-
     }
 
     /**
@@ -141,14 +134,13 @@ public class cernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
      */
     @Test(enabled = true, description = "cerner {searchEncounter} integration test with Mandatory parameters.")
     public void searchEncounterwithMandatoryParameters() throws IOException, JSONException {
-        String methodName = "searchNewEncounter";
-        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(getProxyServiceURLHttp(methodName), "POST", eiRequestHeadersMap, "searchNewEncounter.json");
+        eiRequestHeadersMap.put("Action", "urn:searchNewEncounter");
+        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(proxyUrl, "POST", eiRequestHeadersMap, "searchNewEncounter.json");
         final String apiEndPoint = connectorProperties.getProperty("base") + "/" + connectorProperties.getProperty("encounterType") +
                 "?patient=" + connectorProperties.getProperty("patient");
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
         Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
         Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
-
     }
 
     /**
@@ -156,14 +148,13 @@ public class cernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
      */
     @Test(enabled = true, description = "cerner {searchMedicationStatement} integration test with optional parameters.")
     public void searchMedicationStatementwithOptionalParameters() throws IOException, JSONException {
-        String methodName = "searchMedicationStatement";
-        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(getProxyServiceURLHttp(methodName), "POST", eiRequestHeadersMap, "searchMedicationStatement.json");
+        eiRequestHeadersMap.put("Action", "urn:searchMedicationStatement");
+        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(proxyUrl, "POST", eiRequestHeadersMap, "searchMedicationStatement.json");
         final String apiEndPoint = connectorProperties.getProperty("base") + "/" + connectorProperties.getProperty("medicationStatementType") +
                 "?patient=" + connectorProperties.getProperty("patient") + "&status=" + connectorProperties.getProperty("status");
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
         Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
         Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
-
     }
 
     /**
@@ -171,14 +162,13 @@ public class cernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
      */
     @Test(enabled = true, description = "cerner {searchObservation} integration test with optional parameters.")
     public void searchObservationwithOptionalParameters() throws IOException, JSONException {
-        String methodName = "searchObservation";
-        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(getProxyServiceURLHttp(methodName), "POST", eiRequestHeadersMap, "searchObservation.json");
+        eiRequestHeadersMap.put("Action", "urn:searchObservation");
+        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(proxyUrl, "POST", eiRequestHeadersMap, "searchObservation.json");
         final String apiEndPoint = connectorProperties.getProperty("base") + "/" + connectorProperties.getProperty("observationType") +
                 "?patient=" + connectorProperties.getProperty("patient") + "&_lastUpdated=ge" + connectorProperties.getProperty("initialDateOfLastUpdate");
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
         Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
         Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
-
     }
 
     /**
@@ -186,14 +176,13 @@ public class cernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
      */
     @Test(enabled = true, description = "cerner {searchSchedule} integration test with mandatory parameters.")
     public void searchSchedulewithMandatoryParameters() throws IOException, JSONException {
-        String methodName = "searchSchedule";
-        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(getProxyServiceURLHttp(methodName), "POST", eiRequestHeadersMap, "searchSchedule.json");
+        eiRequestHeadersMap.put("Action", "urn:searchSchedule");
+        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(proxyUrl, "POST", eiRequestHeadersMap, "searchSchedule.json");
         final String apiEndPoint = connectorProperties.getProperty("base") + "/" + connectorProperties.getProperty("scheduleType") +
                 "?_id=" + connectorProperties.getProperty("scheduleId");
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
         Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
         Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
-
     }
 
     /**
@@ -201,14 +190,13 @@ public class cernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
      */
     @Test(enabled = true, description = "cerner {searchGoal} integration test with optional parameters.")
     public void searchGoalwithOptionalParameters() throws IOException, JSONException {
-        String methodName = "searchGoal";
-        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(getProxyServiceURLHttp(methodName), "POST", eiRequestHeadersMap, "searchGoal.json");
+        eiRequestHeadersMap.put("Action", "urn:searchGoal");
+        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(proxyUrl, "POST", eiRequestHeadersMap, "searchGoal.json");
         final String apiEndPoint = connectorProperties.getProperty("base") + "/" + connectorProperties.getProperty("goalType") +
                 "?patient=" + connectorProperties.getProperty("patient") + "&targetDate=" + connectorProperties.getProperty("startDate") + "&targetDate=" + connectorProperties.getProperty("endDate");
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
         Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
         Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
-
     }
 
     /**
@@ -216,14 +204,13 @@ public class cernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
      */
     @Test(enabled = true, description = "cerner {searchAllergyIntolerance} integration test with optional parameters.")
     public void searchAllergyIntolerancelwithOptionalParameters() throws IOException, JSONException {
-        String methodName = "searchAllergyIntolerance";
-        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(getProxyServiceURLHttp(methodName), "POST", eiRequestHeadersMap, "searchAllergyIntolerance.json");
+        eiRequestHeadersMap.put("Action", "urn:searchAllergyIntolerance");
+        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(proxyUrl, "POST", eiRequestHeadersMap, "searchAllergyIntolerance.json");
         final String apiEndPoint = connectorProperties.getProperty("base") + "/" + connectorProperties.getProperty("allergyType") +
                 "?patient=" + connectorProperties.getProperty("patient") + "&status=" + connectorProperties.getProperty("allergyStatus");
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
         Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
         Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
-
     }
 
     /**
@@ -231,14 +218,13 @@ public class cernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
      */
     @Test(enabled = true, description = "cerner {searchCarePlan} integration test with optional parameters.")
     public void searchCarePlanwithOptionalParameters() throws IOException, JSONException {
-        String methodName = "searchCarePlan";
-        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(getProxyServiceURLHttp(methodName), "POST", eiRequestHeadersMap, "searchCarePlan.json");
+        eiRequestHeadersMap.put("Action", "urn:searchCarePlan");
+        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(proxyUrl, "POST", eiRequestHeadersMap, "searchCarePlan.json");
         final String apiEndPoint = connectorProperties.getProperty("base") + "/" + connectorProperties.getProperty("carePlanType") +
                 "?patient=" + connectorProperties.getProperty("patient") + "&category=" + connectorProperties.getProperty("carePlanCategory");
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
         Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
         Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
-
     }
 
     /**
@@ -246,14 +232,13 @@ public class cernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
      */
     @Test(enabled = true, description = "cerner {searchContract} integration test with optional parameters.")
     public void searchContractwithOptionalParameters() throws IOException, JSONException {
-        String methodName = "searchContract";
-        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(getProxyServiceURLHttp(methodName), "POST", eiRequestHeadersMap, "searchContract.json");
+        eiRequestHeadersMap.put("Action", "urn:searchContract");
+        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(proxyUrl, "POST", eiRequestHeadersMap, "searchContract.json");
         final String apiEndPoint = connectorProperties.getProperty("base") + "/" + connectorProperties.getProperty("contractType") +
                 "?subject:Patient=" + connectorProperties.getProperty("contractSubject");
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
         Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
         Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
-
     }
 
     /**
@@ -261,14 +246,13 @@ public class cernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
      */
     @Test(enabled = true, description = "cerner {searchDevice} integration test with optional parameters.")
     public void searchDevicewithOptionalParameters() throws IOException, JSONException {
-        String methodName = "searchDevice";
-        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(getProxyServiceURLHttp(methodName), "POST", eiRequestHeadersMap, "searchDevice.json");
+        eiRequestHeadersMap.put("Action", "urn:searchDevice");
+        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(proxyUrl, "POST", eiRequestHeadersMap, "searchDevice.json");
         final String apiEndPoint = connectorProperties.getProperty("base") + "/" + connectorProperties.getProperty("deviceType") +
                 "?patient=" + connectorProperties.getProperty("patient");
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
         Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
         Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
-
     }
 
     /**
@@ -276,14 +260,13 @@ public class cernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
      */
     @Test(enabled = true, description = "cerner {searchDiagnosticReport} integration test with optional parameters.")
     public void searchDiagnosticReportwithOptionalParameters() throws IOException, JSONException {
-        String methodName = "searchDiagnosticReport";
-        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(getProxyServiceURLHttp(methodName), "POST", eiRequestHeadersMap, "searchDiagnosticReport.json");
+        eiRequestHeadersMap.put("Action", "urn:searchDiagnosticReport");
+        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(proxyUrl, "POST", eiRequestHeadersMap, "searchDiagnosticReport.json");
         final String apiEndPoint = connectorProperties.getProperty("base") + "/" + connectorProperties.getProperty("diagnosticReportType") +
-                "?patient=" + connectorProperties.getProperty("patient") + "&subject:Patient=" + connectorProperties.getProperty("subjectPatient") ;
+                "?patient=" + connectorProperties.getProperty("patient") + "&subject:Patient=" + connectorProperties.getProperty("subjectPatient");
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
         Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
         Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
-
     }
 
     /**
@@ -291,14 +274,13 @@ public class cernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
      */
     @Test(enabled = true, description = "cerner {searchImmunization} integration test with mandatory parameters.")
     public void searchImmunizationwithMandatoryParameters() throws IOException, JSONException {
-        String methodName = "searchImmunization";
-        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(getProxyServiceURLHttp(methodName), "POST", eiRequestHeadersMap, "searchImmunization.json");
+        eiRequestHeadersMap.put("Action", "uurn:searchImmunization");
+        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(proxyUrl, "POST", eiRequestHeadersMap, "searchImmunization.json");
         final String apiEndPoint = connectorProperties.getProperty("base") + "/" + connectorProperties.getProperty("immunizationType") +
                 "?patient=" + connectorProperties.getProperty("patient");
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
         Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
         Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
-
     }
 
     /**
@@ -306,14 +288,13 @@ public class cernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
      */
     @Test(enabled = true, description = "cerner {searchBinary} integration test with mandatory parameters.")
     public void searchBinarywithMandatoryParameters() throws IOException, JSONException {
-        String methodName = "searchBinary";
-        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(getProxyServiceURLHttp(methodName), "POST", eiRequestHeadersMap, "searchBinary.json");
+        eiRequestHeadersMap.put("Action", "urn:searchBinary");
+        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(proxyUrl, "POST", eiRequestHeadersMap, "searchBinary.json");
         final String apiEndPoint = connectorProperties.getProperty("base") + "/" + connectorProperties.getProperty("binaryType") + "/$autogen-ccd-if" +
                 "?patient=" + connectorProperties.getProperty("patient");
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
         Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
         Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
-
     }
 
     /**
@@ -321,14 +302,13 @@ public class cernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
      */
     @Test(enabled = true, description = "cerner {searchDocumentReference} integration test with mandatory parameters.")
     public void searchDocumentReferencewithMandatoryParameters() throws IOException, JSONException {
-        String methodName = "searchDocumentReference";
-        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(getProxyServiceURLHttp(methodName), "POST", eiRequestHeadersMap, "searchDocumentReference.json");
+        eiRequestHeadersMap.put("Action", "urn:searchDocumentReference");
+        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(proxyUrl, "POST", eiRequestHeadersMap, "searchDocumentReference.json");
         final String apiEndPoint = connectorProperties.getProperty("base") + "/" + connectorProperties.getProperty("documentReferenceType") +
                 "?patient=" + connectorProperties.getProperty("patient");
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
         Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
         Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
-
     }
 
     /**
@@ -336,14 +316,13 @@ public class cernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
      */
     @Test(enabled = true, description = "cerner {searchMedicationAdministration} integration test with mandatory parameters.")
     public void searchMedicationAdministrationwithMandatoryParameters() throws IOException, JSONException {
-        String methodName = "searchMedicationAdministration";
-        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(getProxyServiceURLHttp(methodName), "POST", eiRequestHeadersMap, "searchMedicationAdministration.json");
+        eiRequestHeadersMap.put("Action", "urn:searchMedicationAdministration");
+        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(proxyUrl, "POST", eiRequestHeadersMap, "searchMedicationAdministration.json");
         final String apiEndPoint = connectorProperties.getProperty("base") + "/" + connectorProperties.getProperty("medicationAdministrationType") +
                 "?patient=" + connectorProperties.getProperty("patient");
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
         Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
         Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
-
     }
 
     /**
@@ -351,14 +330,13 @@ public class cernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
      */
     @Test(enabled = true, description = "cerner {searchMedicationOrder} integration test with mandatory parameters.")
     public void searchMedicationOrderwithMandatoryParameters() throws IOException, JSONException {
-        String methodName = "searchMedicationOrder";
-        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(getProxyServiceURLHttp(methodName), "POST", eiRequestHeadersMap, "searchMedicationOrder.json");
+        eiRequestHeadersMap.put("Action", "urn:searchMedicationOrder");
+        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(proxyUrl, "POST", eiRequestHeadersMap, "searchMedicationOrder.json");
         final String apiEndPoint = connectorProperties.getProperty("base") + "/" + connectorProperties.getProperty("medicationOrderType") +
                 "?patient=" + connectorProperties.getProperty("patient");
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
         Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
         Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
-
     }
 
     /**
@@ -366,14 +344,13 @@ public class cernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
      */
     @Test(enabled = true, description = "cerner {searchPractitioner} integration test with mandatory parameters.")
     public void searchPractitionerwithMandatoryParameters() throws IOException, JSONException {
-        String methodName = "searchPractitioner";
-        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(getProxyServiceURLHttp(methodName), "POST", eiRequestHeadersMap, "searchPractitioner.json");
+        eiRequestHeadersMap.put("Action", "urn:searchPractitioner");
+        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(proxyUrl, "POST", eiRequestHeadersMap, "searchPractitioner.json");
         final String apiEndPoint = connectorProperties.getProperty("base") + "/" + connectorProperties.getProperty("practitionerType") +
                 "?_id=" + connectorProperties.getProperty("practitionerId");
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
         Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
         Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
-
     }
 
     /**
@@ -381,14 +358,13 @@ public class cernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
      */
     @Test(enabled = true, description = "cerner {searchProcedure} integration test with mandatory parameters.")
     public void searchProcedurewithMandatoryParameters() throws IOException, JSONException {
-        String methodName = "searchProcedure";
-        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(getProxyServiceURLHttp(methodName), "POST", eiRequestHeadersMap, "searchProcedure.json");
+        eiRequestHeadersMap.put("Action", "urn:searchProcedure");
+        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(proxyUrl, "POST", eiRequestHeadersMap, "searchProcedure.json");
         final String apiEndPoint = connectorProperties.getProperty("base") + "/" + connectorProperties.getProperty("procedureType") +
                 "?patient=" + connectorProperties.getProperty("patient");
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
         Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
         Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
-
     }
 
     /**
@@ -396,14 +372,13 @@ public class cernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
      */
     @Test(enabled = true, description = "cerner {searchRelatedPerson} integration test with mandatory parameters.")
     public void searchRelatedPersonwithMandatoryParameters() throws IOException, JSONException {
-        String methodName = "searchRelatedPerson";
-        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(getProxyServiceURLHttp(methodName), "POST", eiRequestHeadersMap, "searchRelatedPerson.json");
+        eiRequestHeadersMap.put("Action", "urn:searchRelatedPerson");
+        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(proxyUrl, "POST", eiRequestHeadersMap, "searchRelatedPerson.json");
         final String apiEndPoint = connectorProperties.getProperty("base") + "/" + connectorProperties.getProperty("relatedPersonType") +
                 "?patient=" + connectorProperties.getProperty("patient");
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
         Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
         Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
-
     }
 
     /**
@@ -411,15 +386,12 @@ public class cernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
      */
     @Test(enabled = true, description = "cerner {searchSlot} integration test with mandatory parameters.")
     public void searchSlotwithMandatoryParameters() throws IOException, JSONException {
-        String methodName = "searchSlot";
-        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(getProxyServiceURLHttp(methodName), "POST", eiRequestHeadersMap, "searchSlot.json");
+        eiRequestHeadersMap.put("Action", "urn:searchSlot");
+        RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(proxyUrl, "POST", eiRequestHeadersMap, "searchSlot.json");
         final String apiEndPoint = connectorProperties.getProperty("base") + "/" + connectorProperties.getProperty("slotType") +
                 "?_id=" + connectorProperties.getProperty("slotId");
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
         Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
         Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
-
     }
-
-
 }

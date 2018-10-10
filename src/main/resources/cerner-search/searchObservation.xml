@@ -17,8 +17,8 @@
 ~  under the License.
 -->
 <template name="searchObservation" xmlns="http://ws.apache.org/ns/synapse">
-    <parameter name="patient" description="The subject of the report if a patient."/>
-    <parameter name="subject" description="The subject (Patient) of the report. "/>
+    <parameter name="patient" description="The subject that the observation is about"/>
+    <parameter name="subject" description="The subject (Patient) that the observation is about."/>
     <parameter name="code" description="The code or component-code of the observation type"/>
     <parameter name="startDate" description="start date when considering the observation range"/>
     <parameter name="endDate" description="end date when considering the observation range"/>

@@ -22,7 +22,7 @@
                description="The subject who this goal is intended for. Must represent a Patient resource"/>
     <parameter name="startDate" description="start date of the goal"/>
     <parameter name="endDate" description="end date of the goal"/>
-    <parameter name="patient" description="Who care plan is for."/>
+    <parameter name="patient" description="Who the goal is for."/>
     <sequence>
         <property name="uri.var.id" expression="$func:id"/>
         <property name="uri.var.startDate" expression="$func:startDate"/>

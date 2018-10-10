@@ -28,7 +28,8 @@
                     <property name="ERROR" value="No supported Mandatory search parameters provided"/>
                 </log>
                 <payloadFactory media-type="json">
-                    <format>{ "Error":{ "errorType":"InvalidParameter","details":"at least the id parameter must be provided " } }
+                    <format>{ "Error":{ "errorType":"InvalidParameter","details":"at least the id parameter must be
+                        provided " } }
                     </format>
                     <args/>
                 </payloadFactory>

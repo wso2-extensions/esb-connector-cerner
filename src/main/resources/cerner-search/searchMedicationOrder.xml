@@ -17,8 +17,8 @@
 ~  under the License.
 -->
 <template name="searchMedicationOrder" xmlns="http://ws.apache.org/ns/synapse">
-    <parameter name="patient" description="The patient who has received the medication administration"/>
-    <parameter name="status" description="The status of the medication administration"/>
+    <parameter name="patient" description="The identity of a patient to list orders"/>
+    <parameter name="status" description="The status of the medication order"/>
     <parameter name="timingBoundsPeriod"
                description="The date-time which should fall within the period the medication should be given to the patient"/>
     <parameter name="earliestLastUpdate" description="The earliest of the update was made to the medication"/>

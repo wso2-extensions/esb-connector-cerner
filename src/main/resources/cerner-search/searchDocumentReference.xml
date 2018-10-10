@@ -22,8 +22,8 @@
     <parameter name="subject" description="The subject of the document reference. Must represent a Patient resource."/>
     <parameter name="encounter"
                description="The encounter to which the document reference belongs. Must represent an Encounter resource."/>
-    <parameter name="createdEarliest" description="A date/time the referenced document was created. "/>
-    <parameter name="createdLatest" description="A date/time the referenced document was created. "/>
+    <parameter name="createdEarliest" description="A date/time the referenced document was created.(starting date) "/>
+    <parameter name="createdLatest" description="A date/time the referenced document was created.(end Date) "/>
     <parameter name="count" description="The maximum number of results to return."/>
     <sequence>
         <property name="uri.var.id" expression="$func:id"/>

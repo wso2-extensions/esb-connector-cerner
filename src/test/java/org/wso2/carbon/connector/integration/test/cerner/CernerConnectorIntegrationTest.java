@@ -32,7 +32,7 @@ import java.util.Map;
 /**
  * Integration test
  */
-public class cernerConnectorIntegrationTest extends ConnectorIntegrationTestBase {
+public class CernerConnectorIntegrationTest extends ConnectorIntegrationTestBase {
 
     private Map<String, String> eiRequestHeadersMap = new HashMap<String, String>();
     private Map<String, String> apiRequestHeadersMap = new HashMap<String, String>();

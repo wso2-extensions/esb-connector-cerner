@@ -22,8 +22,8 @@
     <parameter name="scheduleActor" description="A single or comma separated list of Practitioner references."/>
     <parameter name="location" description="A single or comma separated list of Location references"/>
     <parameter name="start" description="The Slot date-time."/>
-    <parameter name="initialStart" description="The initial Slot date-time"/>
-    <parameter name="finalStart" description="the final Slot date-time"/>
+    <parameter name="startDate" description="The starting date-time of the slot"/>
+    <parameter name="endDate" description="The end date-time of the slot"/>
     <parameter name="count" description="The maximum number of results to be returned per page."/>
     <sequence>
         <property name="uri.var.id" expression="$func:id"/>
@@ -31,8 +31,8 @@
         <property name="uri.var.scheduleActor" expression="$func:scheduleActor"/>
         <property name="uri.var.location" expression="$func:location"/>
         <property name="uri.var.start" expression="$func:start"/>
-        <property name="uri.var.initialStart" expression="$func:initialStart"/>
-        <property name="uri.var.finalStart" expression="$func:finalStart"/>
+        <property name="uri.var.startDate" expression="$func:startDate"/>
+        <property name="uri.var.endDate" expression="$func:endDate"/>
         <property name="uri.var.count" expression="$func:count"/>
         <script language="js">
             <![CDATA[
@@ -41,8 +41,8 @@
             var scheduleActor = mc.getProperty('uri.var.scheduleActor');
             var location = mc.getProperty('uri.var.location');
             var start = mc.getProperty('uri.var.start');
-            var initialStart = mc.getProperty('uri.var.initialStart');
-            var finalStart = mc.getProperty('uri.var.finalStart');
+            var startDate = mc.getProperty('uri.var.startDate');
+            var endDate = mc.getProperty('uri.var.endDate');
             var count = mc.getProperty('uri.var.count');
             urlQuery = '';
             if  (id != null && id != "") {
@@ -60,11 +60,11 @@
             if  (start != null && start != "") {
                 urlQuery += 'start=' + start + '&';
             }
-            if  (initialStart != null && initialStart != "") {
-                urlQuery += 'start=ge' + initialStart + '&';
+            if  (startDate != null && startDate != "") {
+                urlQuery += 'start=ge' + startDate + '&';
             }
-            if  (finalStart != null && finalStart != "") {
-                urlQuery += 'start=lt' + finalStart + '&';
+            if  (endDate != null && endDate != "") {
+                urlQuery += 'start=lt' + endDate + '&';
             }
             if  (count != null && count != "") {
                 urlQuery += '_count=' + count + '&';

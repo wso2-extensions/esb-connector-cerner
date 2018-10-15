@@ -28,7 +28,7 @@
     </listeners>
     <test name="cerner-Connector-Test" preserve-order="true" verbose="2">
         <classes>
-            <class name="org.wso2.carbon.connector.integration.test.cerner.cernerConnectorIntegrationTest"/>
+            <class name="org.wso2.carbon.connector.integration.test.cerner.CernerConnectorIntegrationTest"/>
         </classes>
 
     </test>

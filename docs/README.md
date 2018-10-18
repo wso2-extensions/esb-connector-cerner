@@ -11,3 +11,4 @@ For general information on using connectors and their operations in your configu
 | ------------- | -----------|
 | Connector     | 1.0.0      |
 | Wso2 EI       | 6.3.0      |
+| Cerner API    | DSTU2      |

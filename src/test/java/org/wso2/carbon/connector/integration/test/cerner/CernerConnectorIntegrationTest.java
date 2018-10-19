@@ -28,7 +28,6 @@ import org.wso2.connector.integration.test.base.RestResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
 /**
  * Integration test
  */
@@ -55,10 +54,10 @@ public class CernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
     public void getConformanceWithMandatoryParameters() throws IOException, JSONException {
         eiRequestHeadersMap.put("Action", "urn:getConformance");
         RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(proxyUrl, "POST", eiRequestHeadersMap, "getConformance.json");
-        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
+        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
         final String apiEndPoint = connectorProperties.getProperty("base") + "/metadata";
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
-        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
+        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
     }
 
     /**
@@ -70,8 +69,8 @@ public class CernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
         RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(proxyUrl, "POST", eiRequestHeadersMap, "readSpecificResourceById.json");
         final String apiEndPoint = connectorProperties.getProperty("base") + "/" + connectorProperties.getProperty("type") + "/" + connectorProperties.getProperty("id");
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
-        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
-        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
+        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
+        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
     }
 
     /**
@@ -83,8 +82,8 @@ public class CernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
         RestResponse<JSONObject> eiRestResponse = sendJsonRestRequest(proxyUrl, "POST", eiRequestHeadersMap, "searchSpecificResourceById.json");
         final String apiEndPoint = connectorProperties.getProperty("base") + "/" + connectorProperties.getProperty("type") + "?_id=" + connectorProperties.getProperty("id");
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
-        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
-        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
+        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
+        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
     }
 
     /**
@@ -97,8 +96,8 @@ public class CernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
         final String apiEndPoint = connectorProperties.getProperty("base") + "/" + connectorProperties.getProperty("type") +
                 "?given=" + connectorProperties.getProperty("patientGivenName") + "&birthdate=eq" + connectorProperties.getProperty("patientBirthdate");
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
-        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
-        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
+        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
+        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
     }
 
     /**
@@ -111,8 +110,8 @@ public class CernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
         final String apiEndPoint = connectorProperties.getProperty("base") + "/" + connectorProperties.getProperty("appointmentType") +
                 "?patient=" + connectorProperties.getProperty("patient") + "&date=" + connectorProperties.getProperty("appointmentDate");
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
-        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
-        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
+        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
+        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
     }
 
     /**
@@ -125,8 +124,8 @@ public class CernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
         final String apiEndPoint = connectorProperties.getProperty("base") + "/" + connectorProperties.getProperty("conditionType") +
                 "?patient=" + connectorProperties.getProperty("patient") + "&category=" + connectorProperties.getProperty("conditionCategory");
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
-        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
-        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
+        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
+        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
     }
 
     /**
@@ -139,8 +138,8 @@ public class CernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
         final String apiEndPoint = connectorProperties.getProperty("base") + "/" + connectorProperties.getProperty("encounterType") +
                 "?patient=" + connectorProperties.getProperty("patient");
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
-        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
-        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
+        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
+        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
     }
 
     /**
@@ -153,8 +152,8 @@ public class CernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
         final String apiEndPoint = connectorProperties.getProperty("base") + "/" + connectorProperties.getProperty("medicationStatementType") +
                 "?patient=" + connectorProperties.getProperty("patient") + "&status=" + connectorProperties.getProperty("status");
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
-        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
-        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
+        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
+        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
     }
 
     /**
@@ -167,8 +166,8 @@ public class CernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
         final String apiEndPoint = connectorProperties.getProperty("base") + "/" + connectorProperties.getProperty("observationType") +
                 "?patient=" + connectorProperties.getProperty("patient") + "&_lastUpdated=ge" + connectorProperties.getProperty("initialDateOfLastUpdate");
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
-        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
-        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
+        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
+        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
     }
 
     /**
@@ -181,8 +180,8 @@ public class CernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
         final String apiEndPoint = connectorProperties.getProperty("base") + "/" + connectorProperties.getProperty("scheduleType") +
                 "?_id=" + connectorProperties.getProperty("scheduleId");
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
-        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
-        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
+        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
+        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
     }
 
     /**
@@ -195,8 +194,8 @@ public class CernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
         final String apiEndPoint = connectorProperties.getProperty("base") + "/" + connectorProperties.getProperty("goalType") +
                 "?patient=" + connectorProperties.getProperty("patient") + "&targetDate=" + connectorProperties.getProperty("startDate") + "&targetDate=" + connectorProperties.getProperty("endDate");
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
-        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
-        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
+        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
+        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
     }
 
     /**
@@ -209,8 +208,8 @@ public class CernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
         final String apiEndPoint = connectorProperties.getProperty("base") + "/" + connectorProperties.getProperty("allergyType") +
                 "?patient=" + connectorProperties.getProperty("patient") + "&status=" + connectorProperties.getProperty("allergyStatus");
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
-        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
-        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
+        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
+        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
     }
 
     /**
@@ -223,8 +222,8 @@ public class CernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
         final String apiEndPoint = connectorProperties.getProperty("base") + "/" + connectorProperties.getProperty("carePlanType") +
                 "?patient=" + connectorProperties.getProperty("patient") + "&category=" + connectorProperties.getProperty("carePlanCategory");
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
-        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
-        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
+        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
+        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
     }
 
     /**
@@ -237,8 +236,8 @@ public class CernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
         final String apiEndPoint = connectorProperties.getProperty("base") + "/" + connectorProperties.getProperty("contractType") +
                 "?subject:Patient=" + connectorProperties.getProperty("contractSubject");
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
-        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
-        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
+        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
+        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
     }
 
     /**
@@ -251,8 +250,8 @@ public class CernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
         final String apiEndPoint = connectorProperties.getProperty("base") + "/" + connectorProperties.getProperty("deviceType") +
                 "?patient=" + connectorProperties.getProperty("patient");
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
-        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
-        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
+        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
+        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
     }
 
     /**
@@ -265,8 +264,8 @@ public class CernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
         final String apiEndPoint = connectorProperties.getProperty("base") + "/" + connectorProperties.getProperty("diagnosticReportType") +
                 "?patient=" + connectorProperties.getProperty("patient") + "&subject:Patient=" + connectorProperties.getProperty("subjectPatient");
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
-        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
-        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
+        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
+        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
     }
 
     /**
@@ -279,8 +278,8 @@ public class CernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
         final String apiEndPoint = connectorProperties.getProperty("base") + "/" + connectorProperties.getProperty("immunizationType") +
                 "?patient=" + connectorProperties.getProperty("patient");
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
-        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
-        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
+        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
+        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
     }
 
     /**
@@ -293,8 +292,8 @@ public class CernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
         final String apiEndPoint = connectorProperties.getProperty("base") + "/" + connectorProperties.getProperty("binaryType") + "/$autogen-ccd-if" +
                 "?patient=" + connectorProperties.getProperty("patient");
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
-        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
-        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
+        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
+        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
     }
 
     /**
@@ -307,8 +306,8 @@ public class CernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
         final String apiEndPoint = connectorProperties.getProperty("base") + "/" + connectorProperties.getProperty("documentReferenceType") +
                 "?patient=" + connectorProperties.getProperty("patient");
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
-        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
-        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
+        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
+        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
     }
 
     /**
@@ -321,8 +320,8 @@ public class CernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
         final String apiEndPoint = connectorProperties.getProperty("base") + "/" + connectorProperties.getProperty("medicationAdministrationType") +
                 "?patient=" + connectorProperties.getProperty("patient");
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
-        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
-        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
+        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
+        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
     }
 
     /**
@@ -335,8 +334,8 @@ public class CernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
         final String apiEndPoint = connectorProperties.getProperty("base") + "/" + connectorProperties.getProperty("medicationOrderType") +
                 "?patient=" + connectorProperties.getProperty("patient");
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
-        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
-        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
+        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
+        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
     }
 
     /**
@@ -349,8 +348,8 @@ public class CernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
         final String apiEndPoint = connectorProperties.getProperty("base") + "/" + connectorProperties.getProperty("practitionerType") +
                 "?_id=" + connectorProperties.getProperty("practitionerId");
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
-        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
-        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
+        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
+        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
     }
 
     /**
@@ -363,8 +362,8 @@ public class CernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
         final String apiEndPoint = connectorProperties.getProperty("base") + "/" + connectorProperties.getProperty("procedureType") +
                 "?patient=" + connectorProperties.getProperty("patient");
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
-        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
-        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
+        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
+        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
     }
 
     /**
@@ -377,8 +376,8 @@ public class CernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
         final String apiEndPoint = connectorProperties.getProperty("base") + "/" + connectorProperties.getProperty("relatedPersonType") +
                 "?patient=" + connectorProperties.getProperty("patient");
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
-        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
-        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
+        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
+        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
     }
 
     /**
@@ -391,7 +390,7 @@ public class CernerConnectorIntegrationTest extends ConnectorIntegrationTestBase
         final String apiEndPoint = connectorProperties.getProperty("base") + "/" + connectorProperties.getProperty("slotType") +
                 "?_id=" + connectorProperties.getProperty("slotId");
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
-        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200);
-        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
+        Assert.assertEquals(eiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
+        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200,"Invalid parameter value");
     }
 }

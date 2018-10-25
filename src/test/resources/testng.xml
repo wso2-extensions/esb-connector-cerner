@@ -16,7 +16,6 @@
  ~  specific language governing permissions and limitations
  ~  under the License.
 -->
-
 <suite name="ESBTestSuite" parallel="false">
     <listeners>
         <listener class-name="org.wso2.carbon.automation.engine.testlisteners.TestExecutionListener"/>
@@ -24,12 +23,10 @@
         <listener class-name="org.wso2.carbon.automation.engine.testlisteners.TestTransformerListener"/>
         <listener class-name="org.wso2.carbon.automation.engine.testlisteners.TestManagerListener"/>
         <listener class-name="org.wso2.carbon.automation.engine.testlisteners.TestReportListener"/>
-
     </listeners>
     <test name="cerner-Connector-Test" preserve-order="true" verbose="2">
         <classes>
             <class name="org.wso2.carbon.connector.integration.test.cerner.CernerConnectorIntegrationTest"/>
         </classes>
-
     </test>
 </suite>

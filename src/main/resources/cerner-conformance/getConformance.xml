@@ -17,28 +17,12 @@
 ~  under the License.
 -->
 <template name="getConformance" xmlns="http://ws.apache.org/ns/synapse">
-    <parameter name="format" description="The format of the response"/>
     <sequence>
-        <property name="uri.var.format" expression="$func:format"/>
-        <script language="js">
-            <![CDATA[
-            var format = mc.getProperty('uri.var.format');
-            var urlQuery = '';
-
-            if  (format != null && format != "") {
-                urlQuery += '_format=' + format + '&';
-            }
-             if  (urlQuery != null && urlQuery != "") {
-                urlQuery ='?' + urlQuery.toString().substring(0, urlQuery.toString().lastIndexOf("&"));
-            }
-            mc.setProperty('uri.var.urlQuery',urlQuery);
-         ]]>
-        </script>
         <header name="Accept" scope="transport" value="application/json+fhir"/>
         <call>
             <endpoint>
                 <http method="Get"
-                      uri-template="{uri.var.base}/metadata{+uri.var.urlQuery}"/>
+                      uri-template="{uri.var.base}/metadata"/>
             </endpoint>
         </call>
     </sequence>

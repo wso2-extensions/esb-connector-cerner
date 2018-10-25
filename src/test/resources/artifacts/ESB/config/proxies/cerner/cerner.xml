@@ -36,11 +36,9 @@
             <cerner.init>
                 <base>{$ctx:base}</base>
             </cerner.init>
-            <log category="INFO" level="full" separator=","/>
             <switch source="get-property('transport', 'Action')">
                 <case regex="urn:getConformance">
                     <cerner.getConformance/>
-                    <log category="INFO" level="full" separator=","/>
                 </case>
                 <case regex="urn:retrieveById">
                     <cerner.retrieveById>

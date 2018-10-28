@@ -1,6 +1,6 @@
 {
   "base": "%s(base)",
-  "type": "%s(observationType)",
+  "type": "Observation",
   "_lastUpdated": "%s(initialDateOfLastUpdate)",
   "patient": "%s(patient)"
 }

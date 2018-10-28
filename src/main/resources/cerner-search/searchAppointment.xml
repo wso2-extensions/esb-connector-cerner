@@ -83,9 +83,8 @@
         </script>
         <header name="Accept" scope="transport" value="application/json+fhir"/>
         <call>
-            <log category="INFO" level="full" separator=","/>
             <endpoint>
-                <http method="Get"
+                <http method="GET"
                       uri-template="{uri.var.base}/Appointment{+uri.var.urlQuery}"/>
             </endpoint>
         </call>

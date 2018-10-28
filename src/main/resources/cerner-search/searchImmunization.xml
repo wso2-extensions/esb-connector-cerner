@@ -24,27 +24,6 @@
         <property name="uri.var.earliestDate" expression="$func:earliestDate"/>
         <property name="uri.var.latestDate" expression="$func:latestDate"/>
         <property name="uri.var.patient" expression="$func:patient"/>
-        <script language="js">
-            <![CDATA[
-            var earliestDate = mc.getProperty('uri.var.earliestDate');
-            var latestDate = mc.getProperty('uri.var.latestDate');
-            var patient = mc.getProperty('uri.var.patient');
-            urlQuery = '';
-            if  (patient != null && patient != "") {
-                urlQuery += 'patient=' + patient + '&';
-            }
-            if  (earliestDate != null && earliestDate != "") {
-                urlQuery += 'date=ge' + earliestDate + '&';
-            }
-            if  (latestDate != null && latestDate != "") {
-                urlQuery += 'date=le' + latestDate + '&';
-            }
-            if  (urlQuery != null && urlQuery  != "") {
-                urlQuery = '?' + urlQuery.toString().substring(0, urlQuery.toString().lastIndexOf("&"));
-            }
-            mc.setProperty('uri.var.urlQuery',urlQuery);
-            ]]>
-        </script>
         <filter source="boolean($ctx:uri.var.patient)" regex="false">
             <then>
                 <log category="ERROR" description="FAULT" level="custom">
@@ -62,11 +41,31 @@
                 <send/>
             </then>
             <else>
+                <script language="js">
+                    <![CDATA[
+                    var earliestDate = mc.getProperty('uri.var.earliestDate');
+                    var latestDate = mc.getProperty('uri.var.latestDate');
+                    var patient = mc.getProperty('uri.var.patient');
+                    urlQuery = '';
+                    if  (patient != null && patient != "") {
+                        urlQuery += 'patient=' + patient + '&';
+                    }
+                    if  (earliestDate != null && earliestDate != "") {
+                        urlQuery += 'date=ge' + earliestDate + '&';
+                    }
+                    if  (latestDate != null && latestDate != "") {
+                        urlQuery += 'date=le' + latestDate + '&';
+                    }
+                    if  (urlQuery != null && urlQuery  != "") {
+                        urlQuery = '?' + urlQuery.toString().substring(0, urlQuery.toString().lastIndexOf("&"));
+                    }
+                    mc.setProperty('uri.var.urlQuery',urlQuery);
+                    ]]>
+                </script>
                 <header name="Accept" scope="transport" value="application/json+fhir"/>
                 <call>
-                    <log category="INFO" level="full" separator=","/>
                     <endpoint>
-                        <http method="Get"
+                        <http method="GET"
                               uri-template="{uri.var.base}/Immunization{+uri.var.urlQuery}"/>
                     </endpoint>
                 </call>

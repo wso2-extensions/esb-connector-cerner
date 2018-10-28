@@ -27,31 +27,6 @@
         <property name="uri.var.patient" expression="$func:patient"/>
         <property name="uri.var.category" expression="$func:category"/>
         <property name="uri.var.clinicalstatus" expression="$func:clinicalstatus"/>
-        <script language="js">
-            <![CDATA[
-            var id = mc.getProperty('uri.var.id');
-            var patient = mc.getProperty('uri.var.patient');
-            var category = mc.getProperty('uri.var.category');
-            var clinicalstatus = mc.getProperty('uri.var.clinicalstatus');
-            urlQuery = '';
-            if  (id != null && id != "") {
-                urlQuery += '_id=' + id + '&';
-            }
-            if  (patient != null && patient != "") {
-                urlQuery += 'patient=' + patient + '&';
-            }
-            if  (category != null && category != "") {
-                urlQuery += 'category=' + category + '&';
-            }
-            if  (clinicalstatus != null && clinicalstatus != "") {
-                urlQuery += 'clinicalstatus=' + clinicalstatus + '&';
-            }
-            if  (urlQuery != null && urlQuery  != "") {
-                urlQuery = '?' + urlQuery.toString().substring(0, urlQuery.toString().lastIndexOf("&"));
-            }
-            mc.setProperty('uri.var.urlQuery',urlQuery);
-            ]]>
-        </script>
         <filter source="boolean($ctx:uri.var.id) or boolean($ctx:uri.var.patient)" regex="false">
             <then>
                 <log category="ERROR" description="FAULT" level="custom">
@@ -69,11 +44,35 @@
                 <send/>
             </then>
             <else>
+                <script language="js">
+                    <![CDATA[
+                    var id = mc.getProperty('uri.var.id');
+                    var patient = mc.getProperty('uri.var.patient');
+                    var category = mc.getProperty('uri.var.category');
+                    var clinicalstatus = mc.getProperty('uri.var.clinicalstatus');
+                    urlQuery = '';
+                    if  (id != null && id != "") {
+                        urlQuery += '_id=' + id + '&';
+                    }
+                    if  (patient != null && patient != "") {
+                        urlQuery += 'patient=' + patient + '&';
+                    }
+                    if  (category != null && category != "") {
+                        urlQuery += 'category=' + category + '&';
+                    }
+                    if  (clinicalstatus != null && clinicalstatus != "") {
+                        urlQuery += 'clinicalstatus=' + clinicalstatus + '&';
+                    }
+                    if  (urlQuery != null && urlQuery  != "") {
+                        urlQuery = '?' + urlQuery.toString().substring(0, urlQuery.toString().lastIndexOf("&"));
+                    }
+                    mc.setProperty('uri.var.urlQuery',urlQuery);
+                    ]]>
+                </script>
                 <header name="Accept" scope="transport" value="application/json+fhir"/>
                 <call>
-                    <log category="INFO" level="full" separator=","/>
                     <endpoint>
-                        <http method="Get"
+                        <http method="GET"
                               uri-template="{uri.var.base}/Condition{+uri.var.urlQuery}"/>
                     </endpoint>
                 </call>

@@ -1,5 +1,5 @@
 {
   "base": "%s(base)",
-  "type": "%s(encounterType)",
+  "type": "Encounter",
   "patient": "%s(patient)"
 }

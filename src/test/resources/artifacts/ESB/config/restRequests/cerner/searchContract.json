@@ -1,5 +1,5 @@
 {
   "base": "%s(base)",
-  "type": "%s(contractType)",
+  "type": "Contract",
   "subject": "%s(contractSubject)"
 }

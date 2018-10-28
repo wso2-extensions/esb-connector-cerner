@@ -1,6 +1,6 @@
 {
   "base": "%s(base)",
-  "type": "%s(appointmentType)",
+  "type": "Appointment",
   "date": "%s(appointmentDate)",
   "patient": "%s(patient)"
 }

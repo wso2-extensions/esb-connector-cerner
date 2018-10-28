@@ -33,43 +33,6 @@
         <property name="uri.var.createdEarliest" expression="$func:createdEarliest"/>
         <property name="uri.var.createdLatest" expression="$func:createdLatest"/>
         <property name="uri.var.count" expression="$func:count"/>
-        <script language="js">
-            <![CDATA[
-            var id = mc.getProperty('uri.var.id');
-            var patient = mc.getProperty('uri.var.patient');
-            var subject = mc.getProperty('uri.var.subject');
-            var encounter = mc.getProperty('uri.var.encounter');
-            var createdEarliest = mc.getProperty('uri.var.createdEarliest');
-            var createdLatest = mc.getProperty('uri.var.createdLatest');
-            var count = mc.getProperty('uri.var.count');
-            urlQuery = '';
-            if  (id != null && id != "") {
-                urlQuery += '_id=' + id + '&';
-            }
-            if  (patient != null && patient != "") {
-                urlQuery += 'patient=' + patient + '&';
-            }
-            if  (subject != null && subject != "") {
-                urlQuery += 'subject:Patient=' + subject + '&';
-            }
-            if  (encounter != null && encounter != "") {
-                urlQuery += 'encounter=' + encounter + '&';
-            }
-            if  (createdEarliest != null && createdEarliest != "") {
-                urlQuery += 'created=ge' + createdEarliest + '&';
-            }
-            if  (createdLatest != null && createdLatest != "") {
-                urlQuery += 'created=le' + createdLatest + '&';
-            }
-            if  (count != null && count != "") {
-                urlQuery += '_count=' + count + '&';
-            }
-            if  (urlQuery != null && urlQuery  != "") {
-                urlQuery = '?' + urlQuery.toString().substring(0, urlQuery.toString().lastIndexOf("&"));
-            }
-            mc.setProperty('uri.var.urlQuery',urlQuery);
-              ]]>
-        </script>
         <filter source="boolean($ctx:uri.var.id) or boolean($ctx:uri.var.subject) or boolean($ctx:uri.var.patient)"
                 regex="false">
             <then>
@@ -88,11 +51,47 @@
                 <send/>
             </then>
             <else>
+                <script language="js">
+                    <![CDATA[
+                    var id = mc.getProperty('uri.var.id');
+                    var patient = mc.getProperty('uri.var.patient');
+                    var subject = mc.getProperty('uri.var.subject');
+                    var encounter = mc.getProperty('uri.var.encounter');
+                    var createdEarliest = mc.getProperty('uri.var.createdEarliest');
+                    var createdLatest = mc.getProperty('uri.var.createdLatest');
+                    var count = mc.getProperty('uri.var.count');
+                    urlQuery = '';
+                    if  (id != null && id != "") {
+                        urlQuery += '_id=' + id + '&';
+                    }
+                    if  (patient != null && patient != "") {
+                        urlQuery += 'patient=' + patient + '&';
+                    }
+                    if  (subject != null && subject != "") {
+                        urlQuery += 'subject:Patient=' + subject + '&';
+                    }
+                    if  (encounter != null && encounter != "") {
+                        urlQuery += 'encounter=' + encounter + '&';
+                    }
+                    if  (createdEarliest != null && createdEarliest != "") {
+                        urlQuery += 'created=ge' + createdEarliest + '&';
+                    }
+                    if  (createdLatest != null && createdLatest != "") {
+                        urlQuery += 'created=le' + createdLatest + '&';
+                    }
+                    if  (count != null && count != "") {
+                        urlQuery += '_count=' + count + '&';
+                    }
+                    if  (urlQuery != null && urlQuery  != "") {
+                        urlQuery = '?' + urlQuery.toString().substring(0, urlQuery.toString().lastIndexOf("&"));
+                    }
+                    mc.setProperty('uri.var.urlQuery',urlQuery);
+                      ]]>
+                </script>
                 <header name="Accept" scope="transport" value="application/json+fhir"/>
                 <call>
-                    <log category="INFO" level="full" separator=","/>
                     <endpoint>
-                        <http method="Get"
+                        <http method="GET"
                               uri-template="{uri.var.base}/DocumentReference{+uri.var.urlQuery}"/>
                     </endpoint>
                 </call>

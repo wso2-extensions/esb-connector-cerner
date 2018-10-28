@@ -31,39 +31,6 @@
         <property name="uri.var.earliestLastUpdate" expression="$func:earliestLastUpdate"/>
         <property name="uri.var.latestLastUpdate" expression="$func:latestLastUpdate"/>
         <property name="uri.var.count" expression="$func:count"/>
-        <script language="js">
-            <![CDATA[
-            var patient = mc.getProperty('uri.var.patient');
-            var status = mc.getProperty('uri.var.status');
-            var timingBoundsPeriod = mc.getProperty('uri.var.timingBoundsPeriod');
-            var earliestLastUpdate = mc.getProperty('uri.var.earliestLastUpdate');
-            var latestLastUpdate = mc.getProperty('uri.var.latestLastUpdate');
-            var count = mc.getProperty('uri.var.count');
-            urlQuery = '';
-            if  (patient != null && patient != "") {
-                urlQuery += 'patient=' + patient + '&';
-            }
-            if  (status != null && status != "") {
-                urlQuery += 'status=' + status + '&';
-            }
-            if  (timingBoundsPeriod != null && timingBoundsPeriod != "") {
-                urlQuery += '-timing-boundsPeriod=ge' + timingBoundsPeriod + '&';
-            }
-            if  (earliestLastUpdate != null && earliestLastUpdate != "") {
-                urlQuery += '_lastUpdated=ge' + earliestLastUpdate + '&';
-            }
-            if  (latestLastUpdate != null && latestLastUpdate != "") {
-                urlQuery += '_lastUpdated=le' + latestLastUpdate + '&';
-            }
-            if  (count != null && count != "") {
-                urlQuery += '_count=' + count + '&';
-            }
-            if  (urlQuery != null && urlQuery  != "") {
-                urlQuery = '?' + urlQuery.toString().substring(0, urlQuery.toString().lastIndexOf("&"));
-            }
-            mc.setProperty('uri.var.urlQuery',urlQuery);
-            ]]>
-        </script>
         <filter source="boolean($ctx:uri.var.patient)" regex="false">
             <then>
                 <log category="ERROR" description="FAULT" level="custom">
@@ -81,11 +48,43 @@
                 <send/>
             </then>
             <else>
+                <script language="js">
+                    <![CDATA[
+                    var patient = mc.getProperty('uri.var.patient');
+                    var status = mc.getProperty('uri.var.status');
+                    var timingBoundsPeriod = mc.getProperty('uri.var.timingBoundsPeriod');
+                    var earliestLastUpdate = mc.getProperty('uri.var.earliestLastUpdate');
+                    var latestLastUpdate = mc.getProperty('uri.var.latestLastUpdate');
+                    var count = mc.getProperty('uri.var.count');
+                    urlQuery = '';
+                    if  (patient != null && patient != "") {
+                        urlQuery += 'patient=' + patient + '&';
+                    }
+                    if  (status != null && status != "") {
+                        urlQuery += 'status=' + status + '&';
+                    }
+                    if  (timingBoundsPeriod != null && timingBoundsPeriod != "") {
+                        urlQuery += '-timing-boundsPeriod=ge' + timingBoundsPeriod + '&';
+                    }
+                    if  (earliestLastUpdate != null && earliestLastUpdate != "") {
+                        urlQuery += '_lastUpdated=ge' + earliestLastUpdate + '&';
+                    }
+                    if  (latestLastUpdate != null && latestLastUpdate != "") {
+                        urlQuery += '_lastUpdated=le' + latestLastUpdate + '&';
+                    }
+                    if  (count != null && count != "") {
+                        urlQuery += '_count=' + count + '&';
+                    }
+                    if  (urlQuery != null && urlQuery  != "") {
+                        urlQuery = '?' + urlQuery.toString().substring(0, urlQuery.toString().lastIndexOf("&"));
+                    }
+                    mc.setProperty('uri.var.urlQuery',urlQuery);
+                    ]]>
+                </script>
                 <header name="Accept" scope="transport" value="application/json+fhir"/>
                 <call>
-                    <log category="INFO" level="full" separator=","/>
                     <endpoint>
-                        <http method="Get"
+                        <http method="GET"
                               uri-template="{uri.var.base}/MedicationOrder{+uri.var.urlQuery}"/>
                     </endpoint>
                 </call>

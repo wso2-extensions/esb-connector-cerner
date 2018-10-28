@@ -1,5 +1,5 @@
 {
   "base": "%s(base)",
-  "type": "%s(scheduleType)",
+  "type": "Schedule",
   "id": "%s(scheduleId)"
 }

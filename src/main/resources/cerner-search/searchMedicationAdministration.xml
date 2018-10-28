@@ -34,47 +34,6 @@
         <property name="uri.var.startEffectiveTime" expression="$func:startEffectiveTime"/>
         <property name="uri.var.endEffectiveTime" expression="$func:endEffectiveTime"/>
         <property name="uri.var.count" expression="$func:count"/>
-        <script language="js">
-            <![CDATA[
-            var id = mc.getProperty('uri.var.id');
-            var patient = mc.getProperty('uri.var.patient');
-            var status = mc.getProperty('uri.var.status');
-            var practitioner = mc.getProperty('uri.var.practitioner');
-            var notGiven = mc.getProperty('uri.var.notGiven');
-            var startEffectiveTime = mc.getProperty('uri.var.startEffectiveTime');
-            var endEffectiveTime = mc.getProperty('uri.var.endEffectiveTime');
-            var count = mc.getProperty('uri.var.count');
-            urlQuery = '';
-            if  (id != null && id != "") {
-                urlQuery += '_id=' + id + '&';
-            }
-            if  (patient != null && patient != "") {
-                urlQuery += 'patient=' + patient + '&';
-            }
-            if  (status != null && status != "") {
-                urlQuery += 'status=' + status + '&';
-            }
-            if  (practitioner != null && practitioner != "") {
-                urlQuery += 'practitioner=' + practitioner + '&';
-            }
-            if  (notGiven != null && notGiven != "") {
-                urlQuery += 'notgiven=' + notGiven + '&';
-            }
-            if  (startEffectiveTime != null && startEffectiveTime != "") {
-                urlQuery += 'effectivetime=ge' + startEffectiveTime + '&';
-            }
-            if  (endEffectiveTime != null && endEffectiveTime != "") {
-                urlQuery += 'effectivetime=le' + endEffectiveTime + '&';
-            }
-            if  (count != null && count != "") {
-                urlQuery += '_count=' + count + '&';
-            }
-            if  (urlQuery != null && urlQuery  != "") {
-                urlQuery = '?' + urlQuery.toString().substring(0, urlQuery.toString().lastIndexOf("&"));
-            }
-            mc.setProperty('uri.var.urlQuery',urlQuery);
-            ]]>
-        </script>
         <filter source="boolean($ctx:uri.var.id) or boolean($ctx:uri.var.patient)" regex="false">
             <then>
                 <log category="ERROR" description="FAULT" level="custom">
@@ -92,11 +51,51 @@
                 <send/>
             </then>
             <else>
+                <script language="js">
+                    <![CDATA[
+                    var id = mc.getProperty('uri.var.id');
+                    var patient = mc.getProperty('uri.var.patient');
+                    var status = mc.getProperty('uri.var.status');
+                    var practitioner = mc.getProperty('uri.var.practitioner');
+                    var notGiven = mc.getProperty('uri.var.notGiven');
+                    var startEffectiveTime = mc.getProperty('uri.var.startEffectiveTime');
+                    var endEffectiveTime = mc.getProperty('uri.var.endEffectiveTime');
+                    var count = mc.getProperty('uri.var.count');
+                    urlQuery = '';
+                    if  (id != null && id != "") {
+                        urlQuery += '_id=' + id + '&';
+                    }
+                    if  (patient != null && patient != "") {
+                        urlQuery += 'patient=' + patient + '&';
+                    }
+                    if  (status != null && status != "") {
+                        urlQuery += 'status=' + status + '&';
+                    }
+                    if  (practitioner != null && practitioner != "") {
+                        urlQuery += 'practitioner=' + practitioner + '&';
+                    }
+                    if  (notGiven != null && notGiven != "") {
+                        urlQuery += 'notgiven=' + notGiven + '&';
+                    }
+                    if  (startEffectiveTime != null && startEffectiveTime != "") {
+                        urlQuery += 'effectivetime=ge' + startEffectiveTime + '&';
+                    }
+                    if  (endEffectiveTime != null && endEffectiveTime != "") {
+                        urlQuery += 'effectivetime=le' + endEffectiveTime + '&';
+                    }
+                    if  (count != null && count != "") {
+                        urlQuery += '_count=' + count + '&';
+                    }
+                    if  (urlQuery != null && urlQuery  != "") {
+                        urlQuery = '?' + urlQuery.toString().substring(0, urlQuery.toString().lastIndexOf("&"));
+                    }
+                    mc.setProperty('uri.var.urlQuery',urlQuery);
+                    ]]>
+                </script>
                 <header name="Accept" scope="transport" value="application/json+fhir"/>
                 <call>
-                    <log category="INFO" level="full" separator=","/>
                     <endpoint>
-                        <http method="Get"
+                        <http method="GET"
                               uri-template="{uri.var.base}/MedicationAdministration{+uri.var.urlQuery}"/>
                     </endpoint>
                 </call>

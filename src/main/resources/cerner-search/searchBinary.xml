@@ -24,27 +24,6 @@
         <property name="uri.var.patient" expression="$func:patient"/>
         <property name="uri.var.start" expression="$func:start"/>
         <property name="uri.var.end" expression="$func:end"/>
-        <script language="js">
-            <![CDATA[
-            var patient = mc.getProperty('uri.var.patient');
-            var start = mc.getProperty('uri.var.start');
-            var end = mc.getProperty('uri.var.end');
-            urlQuery = '';
-            if  (patient != null && patient != "") {
-                urlQuery += 'patient=' + patient + '&';
-            }
-            if  (start != null && start != "") {
-                urlQuery += 'start=' + start + '&';
-            }
-            if  (end != null && end != "") {
-                urlQuery += 'end=' + end + '&';
-            }
-            if  (urlQuery != null && urlQuery  != "") {
-                urlQuery = '?' + urlQuery.toString().substring(0, urlQuery.toString().lastIndexOf("&"));
-            }
-            mc.setProperty('uri.var.urlQuery',urlQuery);
-              ]]>
-        </script>
         <filter source="boolean($ctx:uri.var.patient)" regex="false">
             <then>
                 <log category="ERROR" description="FAULT" level="custom">
@@ -62,11 +41,31 @@
                 <send/>
             </then>
             <else>
+                <script language="js">
+                    <![CDATA[
+                    var patient = mc.getProperty('uri.var.patient');
+                    var start = mc.getProperty('uri.var.start');
+                    var end = mc.getProperty('uri.var.end');
+                    urlQuery = '';
+                    if  (patient != null && patient != "") {
+                        urlQuery += 'patient=' + patient + '&';
+                    }
+                    if  (start != null && start != "") {
+                        urlQuery += 'start=' + start + '&';
+                    }
+                    if  (end != null && end != "") {
+                        urlQuery += 'end=' + end + '&';
+                    }
+                    if  (urlQuery != null && urlQuery  != "") {
+                        urlQuery = '?' + urlQuery.toString().substring(0, urlQuery.toString().lastIndexOf("&"));
+                    }
+                    mc.setProperty('uri.var.urlQuery',urlQuery);
+                      ]]>
+                </script>
                 <header name="Accept" scope="transport" value="application/json+fhir"/>
                 <call>
-                    <log category="INFO" level="full" separator=","/>
                     <endpoint>
-                        <http method="Get"
+                        <http method="GET"
                               uri-template="{uri.var.base}/Binary/$autogen-ccd-if{+uri.var.urlQuery}"/>
                     </endpoint>
                 </call>

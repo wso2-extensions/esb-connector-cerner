@@ -34,47 +34,6 @@
         <property name="uri.var.category" expression="$func:category"/>
         <property name="uri.var.context" expression="$func:context"/>
         <property name="uri.var.subject" expression="$func:subject"/>
-        <script language="js">
-            <![CDATA[
-            var id = mc.getProperty('uri.var.id');
-            var startDate = mc.getProperty('uri.var.startDate');
-            var endDate = mc.getProperty('uri.var.endDate');
-            var patient = mc.getProperty('uri.var.patient');
-            var count = mc.getProperty('uri.var.count');
-            var category = mc.getProperty('uri.var.category');
-            var context = mc.getProperty('uri.var.context');
-            var subject = mc.getProperty('uri.var.subject');
-            urlQuery = '';
-            if  (id != null && id != "") {
-                urlQuery += '_id=' + id + '&';
-            }
-            if  (startDate != null && startDate != "") {
-                urlQuery += 'date=ge' + startDate + '&';
-            }
-            if  (endDate != null && endDate != "") {
-                urlQuery += 'date=le' + endDate + '&';
-            }
-            if  (patient != null && patient != "") {
-                urlQuery += 'patient=' + patient + '&';
-            }
-            if  (count != null && count != "") {
-                urlQuery += '_count=' + count + '&';
-            }
-            if  (category != null && category != "") {
-                urlQuery += 'category=' + category + '&';
-            }
-            if  (context != null && context != "") {
-                urlQuery += 'context=' + context + '&';
-            }
-            if  (subject != null && subject != "") {
-                urlQuery += 'subject:Patient=' + subject + '&';
-            }
-            if  (urlQuery != null && urlQuery  != "") {
-                urlQuery = '?' + urlQuery.toString().substring(0, urlQuery.toString().lastIndexOf("&"));
-            }
-            mc.setProperty('uri.var.urlQuery',urlQuery);
-              ]]>
-        </script>
         <filter source="boolean($ctx:uri.var.id) or boolean($ctx:uri.var.subject) or boolean($ctx:uri.var.patient)"
                 regex="false">
             <then>
@@ -93,11 +52,52 @@
                 <send/>
             </then>
             <else>
+                <script language="js">
+                    <![CDATA[
+                    var id = mc.getProperty('uri.var.id');
+                    var startDate = mc.getProperty('uri.var.startDate');
+                    var endDate = mc.getProperty('uri.var.endDate');
+                    var patient = mc.getProperty('uri.var.patient');
+                    var count = mc.getProperty('uri.var.count');
+                    var category = mc.getProperty('uri.var.category');
+                    var context = mc.getProperty('uri.var.context');
+                    var subject = mc.getProperty('uri.var.subject');
+                    urlQuery = '';
+                    if  (id != null && id != "") {
+                        urlQuery += '_id=' + id + '&';
+                    }
+                    if  (startDate != null && startDate != "") {
+                        urlQuery += 'date=ge' + startDate + '&';
+                    }
+                    if  (endDate != null && endDate != "") {
+                        urlQuery += 'date=le' + endDate + '&';
+                    }
+                    if  (patient != null && patient != "") {
+                        urlQuery += 'patient=' + patient + '&';
+                    }
+                    if  (count != null && count != "") {
+                        urlQuery += '_count=' + count + '&';
+                    }
+                    if  (category != null && category != "") {
+                        urlQuery += 'category=' + category + '&';
+                    }
+                    if  (context != null && context != "") {
+                        urlQuery += 'context=' + context + '&';
+                    }
+                    if  (subject != null && subject != "") {
+                        urlQuery += 'subject:Patient=' + subject + '&';
+                    }
+                    if  (urlQuery != null && urlQuery  != "") {
+                        urlQuery = '?' + urlQuery.toString().substring(0, urlQuery.toString().lastIndexOf("&"));
+                    }
+                    mc.setProperty('uri.var.urlQuery',urlQuery);
+                      ]]>
+                </script>
                 <header name="Accept" scope="transport" value="application/json+fhir"/>
                 <call>
                     <log category="INFO" level="full" separator=","/>
                     <endpoint>
-                        <http method="Get"
+                        <http method="GET"
                               uri-template="{uri.var.base}/CarePlan{+uri.var.urlQuery}"/>
                     </endpoint>
                 </call>

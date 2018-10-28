@@ -33,8 +33,10 @@
             <property name="initialDateOfLastUpdate" expression="json-eval($.initialDateOfLastUpdate)"/>
             <property name="given" expression="json-eval($.given)"/>
             <property name="birthdate" expression="json-eval($.birthdate)"/>
+            <property name="accessToken" expression="json-eval($.accessToken)"/>
             <cerner.init>
                 <base>{$ctx:base}</base>
+                <accessToken>{$ctx:accessToken}</accessToken>
             </cerner.init>
             <switch source="get-property('transport', 'Action')">
                 <case regex="urn:getConformance">
@@ -123,12 +125,14 @@
                     <cerner.searchMedicationAdministration>
                         <type>{$ctx:type}</type>
                         <patient>{$ctx:patient}</patient>
+                        <status>{$ctx:status}</status>
                     </cerner.searchMedicationAdministration>
                 </case>
                 <case regex="urn:searchMedicationOrder">
                     <cerner.searchMedicationOrder>
                         <type>{$ctx:type}</type>
                         <patient>{$ctx:patient}</patient>
+                        <status>{$ctx:status}</status>
                     </cerner.searchMedicationOrder>
                 </case>
                 <case regex="urn:searchMedicationStatement">

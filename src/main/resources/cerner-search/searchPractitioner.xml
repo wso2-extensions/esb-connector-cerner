@@ -20,19 +20,6 @@
     <parameter name="id" description="The logical resource id associated with the resource."/>
     <sequence>
         <property name="uri.var.id" expression="$func:id"/>
-        <script language="js">
-            <![CDATA[
-            var id = mc.getProperty('uri.var.id');
-            urlQuery = '';
-            if  (id != null && id != "") {
-                urlQuery += '_id=' + id + '&';
-            }
-            if  (urlQuery != null && urlQuery  != "") {
-                urlQuery = '?' + urlQuery.toString().substring(0, urlQuery.toString().lastIndexOf("&"));
-            }
-            mc.setProperty('uri.var.urlQuery',urlQuery);
-              ]]>
-        </script>
         <filter source="boolean($ctx:uri.var.id)" regex="false">
             <then>
                 <log category="ERROR" description="FAULT" level="custom">
@@ -50,11 +37,17 @@
                 <send/>
             </then>
             <else>
+                <script language="js">
+                    <![CDATA[
+                    var id = mc.getProperty('uri.var.id');
+                    urlQuery = '?' + '_id=' + id;
+                    mc.setProperty('uri.var.urlQuery',urlQuery);
+                      ]]>
+                </script>
                 <header name="Accept" scope="transport" value="application/json+fhir"/>
                 <call>
-                    <log category="INFO" level="full" separator=","/>
                     <endpoint>
-                        <http method="Get"
+                        <http method="GET"
                               uri-template="{uri.var.base}/Practitioner{+uri.var.urlQuery}"/>
                     </endpoint>
                 </call>
@@ -62,3 +55,4 @@
         </filter>
     </sequence>
 </template>
+

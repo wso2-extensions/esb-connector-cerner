@@ -1,6 +1,6 @@
 {
   "base": "%s(base)",
-  "type": "%s(allergyType)",
-  "status": "%s(allergyStatus)",
+  "type": "AllergyIntolerance",
+  "status": "%s(status)",
   "patient": "%s(patient)"
 }

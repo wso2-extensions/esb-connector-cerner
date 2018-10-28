@@ -4844,7 +4844,8 @@ Following is a sample REST request that can be handled by the searchSlot operati
 ## Sample Configuration
 Following is a sample proxy service that illustrates how to connect to Cerner with the init operation and use the searchAppointment operation. The sample request for this proxy can be found in searchAppointment sample request. You can use this sample as a template for using other operations in this category.
 
-**Sample Proxy**
+1. Create a sample proxy as below :
+
 ```xml
 <proxy xmlns="http://ws.apache.org/ns/synapse" name="searchAppointment"
        statistics="disable" trace="disable" transports="https,http" startOnLoad="true">
@@ -4854,6 +4855,7 @@ Following is a sample proxy service that illustrates how to connect to Cerner wi
             <property name="type" expression="json-eval($.type)"/>
             <property name="date" expression="json-eval($.date)"/>
             <property name="patient" expression="json-eval($.patient)"/>
+            <property name="accessToken" expression="json-eval($.accessToken)"/>
             <cerner.init>
                 <base>{$ctx:base}</base>
             </cerner.init>
@@ -4871,7 +4873,21 @@ Following is a sample proxy service that illustrates how to connect to Cerner wi
     <description/>
 </proxy>
 ```
-**Sample response**
+
+2. Create a json file called `searchAppointment.json` containing the following json:
+```json
+{
+  "base": "https://fhir-open.sandboxcerner.com/dstu2/0b8a0111-e8e6-4c26-a91c-5069cbc6b1ca",
+  "type": "Appointment",
+  "date": "2017-10-04",
+  "patient": "4704007"
+}
+```
+3. Execute the following cURL command:
+    ```curl
+    curl http://localhost:8280/services/searchAppointment -d @searchAppointment.json
+    ```
+4. cerner will return a json response as below
 ```json
 {
     "resourceType": "Bundle",

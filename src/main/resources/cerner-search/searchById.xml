@@ -42,7 +42,7 @@
                 <script language="js">
                     <![CDATA[
                     var id = mc.getProperty('uri.var.id');
-                    urlQuery =  "?" + '_id=' + id;
+                    urlQuery =  '?' + '_id=' + id;
                     mc.setProperty('uri.var.urlQuery',urlQuery);
                     ]]>
                 </script>

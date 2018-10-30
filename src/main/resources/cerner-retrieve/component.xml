@@ -20,7 +20,7 @@
     <subComponents>
         <component name="retrieveById">
             <file>retrieveById.xml</file>
-            <description>Retrieve from a specific Resource By ID.</description>
+            <description>Retrieve a specific resource by the ID.</description>
         </component>
     </subComponents>
 </component>

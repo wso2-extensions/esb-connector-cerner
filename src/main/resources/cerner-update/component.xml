@@ -20,7 +20,7 @@
     <subComponents>
         <component name="update">
             <file>update.xml</file>
-            <description>Update a particular resource with provided details</description>
+            <description>Update a particular resource with provided details.</description>
         </component>
     </subComponents>
 </component>

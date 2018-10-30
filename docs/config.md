@@ -4,7 +4,7 @@
 
 ## Initializing the connector
 To use the Cerner connector, add the <cerner.init> element in your configuration before carrying out any Cerner operations.
-This <cerner.init> element used to authenticates the user using OAuth2 authentication to access the Cerner registered client applications and secure sandbox.
+The <cerner.init> element authenticates the user using the OAuth2 authentication and allows them to access the Cerner registered client applications and secure sandbox.
 For more information on authorizing requests in Cerner, see [API Doc](https://fhir.cerner.com/authorization/).
 
 
@@ -18,7 +18,7 @@ For more information on authorizing requests in Cerner, see [API Doc](https://fh
 **Properties**
 
 * baseUrl: The API URL to access the endpoint. Eg: <https://fhir-open.sandboxcerner.com/dstu2/0b8a0111-e8e6-4c26-a91c-5069cbc6b1ca/>
-* accessToken: Access token obtained when using cerner registered applications and secure sandbox.
+* accessToken: Access token obtained when using Cerner registered applications and secure sandbox.
 
 > Note: Access token is not necessary when open sandbox is used.
 
@@ -40,4 +40,4 @@ Required message builders
 <messageBuilder contentType="application/json+fhir" class="org.apache.synapse.commons.json.JsonStreamBuilder"/>
 ```
 
-Now that you have connected to cerner connector,  check [Working with the Cerner Connector](operation.md) to perform various operations with the connector.
+Now that you have configured the Cerner connector, see [Working with the Cerner Connector](operation.md) to perform various operations using the connector.

@@ -20,7 +20,7 @@
 	<subComponents>
 		<component name="init" >
 			<file>init.xml</file>
-			<description>Init configuration file for CERNER Rest connector</description>
+			<description>Init configuration file for CERNER Rest connector.</description>
 		</component>
 	</subComponents>
 </component>

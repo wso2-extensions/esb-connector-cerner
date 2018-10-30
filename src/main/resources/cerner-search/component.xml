@@ -32,11 +32,11 @@
         </component>
         <component name="searchImmunization">
             <file>searchImmunization.xml</file>
-            <description>The Immunization resource includes the view of current and historical administration of vaccinations to a patient in all health care settings</description>
+            <description>The Immunization resource includes the view of current and historical administration of vaccinations to a patient in all health care settings.</description>
         </component>
         <component name="searchMedicationAdministration">
             <file>searchMedicationAdministration.xml</file>
-            <description>The Medication Administration resource provides information about medications and vaccines administered to a patient or consumed by a patient</description>
+            <description>The Medication Administration resource provides information about medications and vaccines administered to a patient or consumed by a patient.</description>
         </component>
         <component name="searchMedicationStatement">
             <file>searchMedicationStatement.xml</file>
@@ -44,7 +44,7 @@
         </component>
         <component name="searchMedicationOrder">
             <file>searchMedicationOrder.xml</file>
-            <description>The Medication Order resource provides orders for all medications along with administration instructions for a patient in both the inpatient and outpatient setting</description>
+            <description>The Medication Order resource provides orders for all medications along with administration instructions for a patient in both the inpatient and outpatient setting.</description>
         </component>
         <component name="searchCarePlan">
             <file>searchCarePlan.xml</file>
@@ -56,7 +56,7 @@
         </component>
         <component name="searchAllergyIntolerance">
             <file>searchAllergyIntolerance.xml</file>
-            <description>The AllergyIntolerance resource provides the clinical assessment of a patient’s allergy or intolerance</description>
+            <description>The AllergyIntolerance resource provides the clinical assessment of a patient’s allergy or intolerance.</description>
         </component>
         <component name="searchCondition">
             <file>searchCondition.xml</file>
@@ -68,7 +68,7 @@
         </component>
         <component name="searchDiagnosticReport">
             <file>searchDiagnosticReport.xml</file>
-            <description>The DiagnosticReport resource typically provides a textual set of information and interpretation after performing a diagnostic service or procedure</description>
+            <description>The DiagnosticReport resource typically provides a textual set of information and interpretation after performing a diagnostic service or procedure.</description>
         </component>
         <component name="searchObservation">
             <file>searchObservation.xml</file>
@@ -80,27 +80,27 @@
         </component>
         <component name="searchSlot">
             <file>searchSlot.xml</file>
-            <description>The Slot resource returns time slots from a schedule which are available for booking an appointment..</description>
+            <description>The Slot resource returns time slots from a schedule which are available for booking an appointment.</description>
         </component>
         <component name="searchAppointment">
             <file>searchAppointment.xml</file>
-            <description>The Appointment resource provides information about scheduled appointments </description>
+            <description>The Appointment resource provides information about scheduled appointments.</description>
         </component>
         <component name="searchDevice">
             <file>searchDevice.xml</file>
-            <description>The Device resource currently exposes the known implant history for a patient at this site. </description>
+            <description>The Device resource currently exposes the known implant history for a patient at this site.</description>
         </component>
         <component name="searchNewEncounter">
             <file>searchNewEncounter.xml</file>
-            <description>The Encounter resource provides admissions or visits during which health care services were provided to a patient </description>
+            <description>The Encounter resource provides admissions or visits during which health care services were provided to a patient.</description>
         </component>
         <component name="searchPerson">
             <file>searchPerson.xml</file>
-            <description>The Person resource identifies an individual outside of a specific health care context providing a mechanism to link person resources across different facilities or organizations </description>
+            <description>The Person resource identifies an individual outside of a specific health care context providing a mechanism to link person resources across different facilities or organizations.</description>
         </component>
         <component name="searchContract">
             <file>searchContract.xml</file>
-            <description>The Contract resource is currently limited to representing people who are authorized to view a patient’s data </description>
+            <description>The Contract resource is currently limited to representing people who are authorized to view a patient’s data.</description>
         </component>
         <component name="searchBinary">
             <file>searchBinary.xml</file>
@@ -108,7 +108,7 @@
         </component>
         <component name="searchDocumentReference">
             <file>searchDocumentReference.xml</file>
-            <description>The DocumentReference resource is used to reference a clinical document for a patient within the health system</description>
+            <description>The DocumentReference resource is used to reference a clinical document for a patient within the health system.</description>
         </component>
         <component name="searchPractitioner">
             <file>searchPractitioner.xml</file>

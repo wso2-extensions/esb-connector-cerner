@@ -3526,7 +3526,7 @@ The search Patient operation will let the user to search a patient based on the 
     <name>{$ctx:name}</name>
     <family>{$ctx:family}</family>
     <phone>{$ctx:phone}</phone>
-    <birthdate>{$ctx:birthdate]</birthdate>
+    <birthdate>{$ctx:birthdate}</birthdate>
     <given>{$ctx:given}</given>
     <email>{$ctx:email}</email>
     <gender>{$ctx:gender}</gender>

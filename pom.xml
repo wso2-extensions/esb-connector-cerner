@@ -240,6 +240,14 @@
             </releases>
         </pluginRepository>
     </pluginRepositories>
+    <scm>
+        <connection>scm:git:https://github.com/wso2-extensions/esb-connector-cerner.git</connection>
+        <url>https://github.com/wso2-extensions/esb-connector-cerner.git</url>
+        <developerConnection>
+            scm:git:https://github.com/wso2-extensions/esb-connector-cerner
+        </developerConnection>
+        <tag>HEAD</tag>
+    </scm>
     <build>
         <plugins>
             <plugin>

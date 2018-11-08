@@ -1,0 +1,5 @@
+{
+  "base": "%s(base)",
+  "type": "Slot",
+  "id": "%s(slotId)"
+}

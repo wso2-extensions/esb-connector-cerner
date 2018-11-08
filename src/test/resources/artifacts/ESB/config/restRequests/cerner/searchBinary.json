@@ -1,0 +1,5 @@
+{
+  "base": "%s(base)",
+  "type": "Binary",
+  "patient": "%s(patient)"
+}

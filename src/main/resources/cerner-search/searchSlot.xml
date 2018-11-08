@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+~  Copyright (c) 2018, WSO2 Inc. (http://wso2.com) All Rights Reserved.
+~
+~  WSO2 Inc. licenses this file to you under the Apache License,
+~  Version 2.0 (the "License"); you may not use this file except
+~  in compliance with the License.
+~  You may obtain a copy of the License at
+~
+~   http://www.apache.org/licenses/LICENSE-2.0
+~
+~  Unless required by applicable law or agreed to in writing,
+~  software distributed under the License is distributed on an
+~  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+~  KIND, either express or implied.  See the License for the
+~  specific language governing permissions and limitations
+~  under the License.
+-->
+<template name="searchSlot" xmlns="http://ws.apache.org/ns/synapse">
+    <parameter name="id" description="The logical resource id associated with the resource."/>
+    <parameter name="slotType" description="The type of appointments that can be booked into this slot."/>
+    <parameter name="scheduleActor" description="A single or comma separated list of Practitioner references."/>
+    <parameter name="location" description="A single or comma separated list of Location references"/>
+    <parameter name="start" description="The Slot date-time."/>
+    <parameter name="startDate" description="The starting date-time of the slot"/>
+    <parameter name="endDate" description="The end date-time of the slot"/>
+    <parameter name="count" description="The maximum number of results to be returned per page."/>
+    <sequence>
+        <property name="uri.var.id" expression="$func:id"/>
+        <property name="uri.var.slotType" expression="$func:slotType"/>
+        <property name="uri.var.scheduleActor" expression="$func:scheduleActor"/>
+        <property name="uri.var.location" expression="$func:location"/>
+        <property name="uri.var.start" expression="$func:start"/>
+        <property name="uri.var.startDate" expression="$func:startDate"/>
+        <property name="uri.var.endDate" expression="$func:endDate"/>
+        <property name="uri.var.count" expression="$func:count"/>
+        <script language="js">
+            <![CDATA[
+            var id = mc.getProperty('uri.var.id');
+            var slotType = mc.getProperty('uri.var.slotType');
+            var scheduleActor = mc.getProperty('uri.var.scheduleActor');
+            var location = mc.getProperty('uri.var.location');
+            var start = mc.getProperty('uri.var.start');
+            var startDate = mc.getProperty('uri.var.startDate');
+            var endDate = mc.getProperty('uri.var.endDate');
+            var count = mc.getProperty('uri.var.count');
+            urlQuery = '';
+            if  (id != null && id != "") {
+                urlQuery += '_id=' + id + '&';
+            }
+            if  (slotType != null && slotType != "") {
+                urlQuery += 'slot-type=' + slotType + '&';
+            }
+            if  (scheduleActor != null && scheduleActor != "") {
+                urlQuery += 'schedule.actor=Practitioner/' + scheduleActor + '&';
+            }
+            if  (location != null && location != "") {
+                urlQuery += '-location=' + location + '&';
+            }
+            if  (start != null && start != "") {
+                urlQuery += 'start=' + start + '&';
+            }
+            if  (startDate != null && startDate != "") {
+                urlQuery += 'start=ge' + startDate + '&';
+            }
+            if  (endDate != null && endDate != "") {
+                urlQuery += 'start=lt' + endDate + '&';
+            }
+            if  (count != null && count != "") {
+                urlQuery += '_count=' + count + '&';
+            }
+            if  (urlQuery != null && urlQuery  != "") {
+                urlQuery = '?' + urlQuery.toString().substring(0, urlQuery.toString().lastIndexOf("&"));
+            }
+            mc.setProperty('uri.var.urlQuery',urlQuery);
+              ]]>
+        </script>
+        <header name="Accept" scope="transport" value="application/json+fhir"/>
+        <call>
+            <endpoint>
+                <http method="GET"
+                      uri-template="{uri.var.base}/Slot{+uri.var.urlQuery}"/>
+            </endpoint>
+        </call>
+    </sequence>
+</template>

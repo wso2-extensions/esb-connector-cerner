@@ -1,0 +1,181 @@
+{
+    "connectorName": "cernerFhirR4",
+    "operationName": "searchGoal",
+    "title": "Search Goal",
+    "help": "<h1>Search Goal</h1> <b>The search operation of the Goal resource.</b>",
+    "elements": [
+        {
+            "type": "attributeGroup",
+            "value": {
+                "groupName": "General",
+                "elements": [
+                    {
+                        "type": "attributeGroup",
+                        "value": {
+                            "groupName": "Search",
+                            "elements": [
+                                {
+                                    "type": "attribute",
+                                    "value": {
+                                        "name": "search",
+                                        "displayName": "Search",
+                                        "inputType": "searchBox",
+                                        "defaultValue": "",
+                                        "required": "false",
+                                        "helpTip": "Search for an attribute using the display name"
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "type":"attributeGroup",
+                        "value":{
+                            "groupName": "Basic",
+                            "elements":[
+                                                                                                        {
+                                        "type":"attribute",
+                                        "value":{
+                                            "name": "id",
+                                            "displayName": "Id",
+                                            "inputType": "stringOrExpression",
+                                            "defaultValue": "",
+                                            "required": "false",
+                                            "helpTip": "Goal id supports only the single id. It is a required field if the patient field is not given."                                        }
+                                    },                                                                                                                                            {
+                                        "type":"attribute",
+                                        "value":{
+                                            "name": "patient",
+                                            "displayName": "Patient",
+                                            "inputType": "stringOrExpression",
+                                            "defaultValue": "",
+                                            "required": "false",
+                                            "helpTip": "Who has the goal is for. It is a required field if the _id field is not given."                                        }
+                                    },                                                                                                                                            {
+                                        "type": "attribute",
+                                          "value": {
+                                            "name": "targetDateSearchBy",
+                                            "displayName": "Target Date Search By",
+                                            "inputType": "comboOrExpression",
+                                            "defaultValue": "Value",
+                                            "required": "false",
+                                            "comboValues": [
+                                              "Value",
+                                              "Range"
+                                            ],
+                                            "helpTip": "Target Date Search By Value or Range. Default is value"
+                                          }
+                                    },                                                                                                        {
+                                        "type":"attribute",
+                                        "value":{
+                                            "name": "targetDateUpperBound",
+                                            "displayName": "Target Date Upper Bound",
+                                            "inputType": "stringOrExpression",
+                                            "defaultValue": "",
+                                            "required": "false",
+                                            "helpTip": "A date or date range from which to find Goals.",
+                                            "enableCondition": [
+                                                {
+                                                                                                            "targetDateSearchBy": "Range"
+                                                                                                    }
+                                            ]                                        }
+                                    },                                                                                                                                            {
+                                        "type":"attribute",
+                                        "value":{
+                                            "name": "targetDateLowerBound",
+                                            "displayName": "Target Date Lower Bound",
+                                            "inputType": "stringOrExpression",
+                                            "defaultValue": "",
+                                            "required": "false",
+                                            "helpTip": "A date or date range from which to find Goals.",
+                                            "enableCondition": [
+                                                {
+                                                                                                            "targetDateSearchBy": "Range"
+                                                                                                    }
+                                            ]                                        }
+                                    },                                                                                                                                            {
+                                        "type":"attribute",
+                                        "value":{
+                                            "name": "targetDate",
+                                            "displayName": "Target Date",
+                                            "inputType": "stringOrExpression",
+                                            "defaultValue": "",
+                                            "required": "false",
+                                            "helpTip": "A date or date range from which to find Goals.",
+                                            "enableCondition": [
+                                                {
+                                                                                                            "targetDateSearchBy": "Value"
+                                                                                                    }
+                                            ]                                        }
+                                    },                                                                                                                                            {
+                                        "type":"attribute",
+                                        "value":{
+                                            "name": "additionalSearchParameters",
+                                            "displayName": "Additional Search Parameters",
+                                            "inputType": "stringOrExpression",
+                                            "defaultValue": "",
+                                            "required": "false",
+                                            "helpTip": ""                                        }
+                                    }                                                                                                ]
+                        }
+                    },
+                    {
+                        "type": "attributeGroup",
+                        "value": {
+                            "groupName": "Replace URL",
+                            "elements": [
+                                {
+                                    "type" : "attribute",
+                                    "value" : {
+                                        "name" : "enableUrlRewrite",
+                                        "displayName" : "Enable",
+                                        "inputType" : "comboOrExpression",
+                                        "defaultValue" : "",
+                                        "required" : "false",
+                                        "comboValues" : [
+                                            "True",
+                                            "False"
+                                        ],
+                                        "helpTip" : "Enable/disable replacing the base URL in the response payload."
+                                    }
+                                },
+                                {
+                                    "type" : "attribute",
+                                    "value" : {
+                                        "name" : "baseUrl",
+                                        "displayName" : "URL",
+                                        "inputType" : "stringOrExpression",
+                                        "defaultValue" : "",
+                                        "required" : "false",
+                                        "helpTip" : "URL to be replaced in the response. If not specified, the Base URL will be used",
+                                        "enableCondition" : [
+                                            {
+                                                "enableUrlRewrite" : "True"
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "type" : "attribute",
+                                    "value" : {
+                                        "name" : "serverUrl",
+                                        "displayName" : "Replace With",
+                                        "inputType" : "stringOrExpression",
+                                        "defaultValue" : "",
+                                        "required" : "false",
+                                        "helpTip" : "Server URL to replace with.",
+                                        "enableCondition" : [
+                                            {
+                                                "enableUrlRewrite" : "True"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+}

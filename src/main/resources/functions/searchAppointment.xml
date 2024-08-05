@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2024, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+  ~
+  ~ WSO2 Inc. licenses this file to you under the Apache License,
+  ~ Version 2.0 (the "License"); you may not use this file except
+  ~ in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing,
+  ~ software distributed under the License is distributed on an
+  ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  ~ KIND, either express or implied.  See the License for the
+  ~ specific language governing permissions and limitations
+  ~ under the License.
+  -->
+
+<!-- Generated on 17-Fri, 05, 2024 15:05:58+0530 -->
+
+<template xmlns="http://ws.apache.org/ns/synapse" name="searchAppointment">
+	<parameter name="enableUrlRewrite" description="Whether to enable/disable URL rewrite in the response payload."/>
+	<parameter name="baseUrl" description="Optional base URL to be replaced in the response."/>
+	<parameter name="serverUrl" description="Public server URL for URL rewrite."/>
+            <parameter name="id" description="A single or comma separated list of Appointment ids. Either the &apos;_id&apos; parameter or one of the &apos;patient&apos;, &apos;practitioner&apos; or &apos;location&apos; parameters must be set."/>
+                <parameter name="countSearchBy" description=""/>
+            <parameter name="countUpperBound" description="The maximum number of results to return in a page. Not honored when &apos;_id&apos; is set."/>
+                <parameter name="countLowerBound" description="The maximum number of results to return in a page. Not honored when &apos;_id&apos; is set."/>
+                <parameter name="count" description="The maximum number of results to return in a page. Not honored when &apos;_id&apos; is set."/>
+                <parameter name="dateSearchBy" description=""/>
+            <parameter name="dateUpperBound" description="A date or date range from which to find appointments. This or the &apos;-date-or-req-period&apos; parameter must be set when using patient, practitioner or location. The &apos;date&apos; parameter may be provided once without a prefix or time component to imply a date range or once without a prefix and with a time component to search for appointments at a specific time. Alternately it may be provided twice with &apos;le&apos; and &apos;gt&apos; prefixes to search for appointments within a specific range. The date prefix pair must create a closed range."/>
+                <parameter name="dateLowerBound" description="A date or date range from which to find appointments. This or the &apos;-date-or-req-period&apos; parameter must be set when using patient, practitioner or location. The &apos;date&apos; parameter may be provided once without a prefix or time component to imply a date range or once without a prefix and with a time component to search for appointments at a specific time. Alternately it may be provided twice with &apos;le&apos; and &apos;gt&apos; prefixes to search for appointments within a specific range. The date prefix pair must create a closed range."/>
+                <parameter name="date" description="A date or date range from which to find appointments. This or the &apos;-date-or-req-period&apos; parameter must be set when using patient, practitioner or location. The &apos;date&apos; parameter may be provided once without a prefix or time component to imply a date range or once without a prefix and with a time component to search for appointments at a specific time. Alternately it may be provided twice with &apos;le&apos; and &apos;gt&apos; prefixes to search for appointments within a specific range. The date prefix pair must create a closed range."/>
+                <parameter name="dateOrReqPeriodSearchBy" description=""/>
+            <parameter name="dateOrReqPeriodUpperBound" description="A start date or requested period from which to find appointments. This or the &apos;date&apos; parameter must be set when using patient, practitioner or location. The &apos;-date-or-req-period&apos; parameter may be provided once without a prefix or time component to imply a date range or once without a prefix and with a time component to search for appointments at a specific time. Alternately it may be provided twice with &apos;le&apos; and &apos;gt&apos; prefixes to search for appointments within a specific range. The date prefix pair must create a closed range."/>
+                <parameter name="dateOrReqPeriodLowerBound" description="A start date or requested period from which to find appointments. This or the &apos;date&apos; parameter must be set when using patient, practitioner or location. The &apos;-date-or-req-period&apos; parameter may be provided once without a prefix or time component to imply a date range or once without a prefix and with a time component to search for appointments at a specific time. Alternately it may be provided twice with &apos;le&apos; and &apos;gt&apos; prefixes to search for appointments within a specific range. The date prefix pair must create a closed range."/>
+                <parameter name="dateOrReqPeriod" description="A start date or requested period from which to find appointments. This or the &apos;date&apos; parameter must be set when using patient, practitioner or location. The &apos;-date-or-req-period&apos; parameter may be provided once without a prefix or time component to imply a date range or once without a prefix and with a time component to search for appointments at a specific time. Alternately it may be provided twice with &apos;le&apos; and &apos;gt&apos; prefixes to search for appointments within a specific range. The date prefix pair must create a closed range."/>
+                <parameter name="patient" description="One of the individuals of the appointment is this patient. Either the &apos;_id&apos; parameter or one of the &apos;patient&apos;, &apos;practitioner&apos; or &apos;location&apos; parameters must be set."/>
+                <parameter name="practitioner" description="One of the individuals of the appointment is this practitioner. Either the &apos;_id&apos; parameter or one of the &apos;patient&apos;, &apos;practitioner&apos; or &apos;location&apos; parameters must be set."/>
+                <parameter name="location" description="This location is listed in the participants of the appointment. Either the &apos;_id&apos; parameter or one of the &apos;patient&apos;, &apos;practitioner&apos; or &apos;location&apos; parameters must be set."/>
+                <parameter name="status" description="The overall status of the appointment."/>
+                <parameter name="additionalSearchParameters" description=""/>
+            
+    <sequence>
+        <class name="org.wso2.healthcare.integration.common.ehr.FHIRUrlQueryBuilder">
+            <property name="parameterNames" value="id,countUpperBound,countLowerBound,count,dateUpperBound,dateLowerBound,date,dateOrReqPeriodUpperBound,dateOrReqPeriodLowerBound,dateOrReqPeriod,patient,practitioner,location,status,additionalSearchParameters"/>
+        </class>
+        <header name="Accept" scope="transport" value="application/fhir+json" action="set"/>
+        <call>
+            <endpoint>
+                <http method="GET" uri-template="{uri.var.base}/Appointment{+uri.var.urlQuery}"/>
+            </endpoint>
+        </call>
+        <class name="org.wso2.healthcare.integration.common.ehr.ResponseProcessingHandler"/>
+    </sequence>
+</template>

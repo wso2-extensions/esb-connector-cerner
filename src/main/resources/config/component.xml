@@ -16,11 +16,14 @@
   ~ specific language governing permissions and limitations
   ~ under the License.
   -->
-<connector>
-    <component name="cernerFhirR4" package="org.wso2.carbon.connector">
-        <dependency component="config"/>
-        <dependency component="functions"/>
-        <description>WSO2 FHIR R4 cernerFhirR4 Connector Library</description>
-    </component>
-    <icon>icon/icon-small.png</icon>
-</connector>
+
+<!-- Generated on 17-Fri, 05, 2024 15:05:58+0530 -->
+
+<component name="config" type="synapse/template">
+    <subComponents>
+        <component name="init">
+            <file>init.xml</file>
+            <description>Init configuration file for cernerFhirR4 connector.</description>
+        </component>
+    </subComponents>
+</component>

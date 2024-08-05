@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2024, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+  ~
+  ~ WSO2 Inc. licenses this file to you under the Apache License,
+  ~ Version 2.0 (the "License"); you may not use this file except
+  ~ in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing,
+  ~ software distributed under the License is distributed on an
+  ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  ~ KIND, either express or implied.  See the License for the
+  ~ specific language governing permissions and limitations
+  ~ under the License.
+  -->
+
+<!-- Generated on 17-Fri, 05, 2024 15:05:58+0530 -->
+
+<template xmlns="http://ws.apache.org/ns/synapse" name="searchAccount">
+	<parameter name="enableUrlRewrite" description="Whether to enable/disable URL rewrite in the response payload."/>
+	<parameter name="baseUrl" description="Optional base URL to be replaced in the response."/>
+	<parameter name="serverUrl" description="Public server URL for URL rewrite."/>
+            <parameter name="id" description="A single or comma separated list of Account ids. It is a required field if the -guarantor or patient fields are not given."/>
+                <parameter name="patient" description="The entity that caused the expenses. It is a required field if the _id or -guarantor fields are not given. Must be set with identifier."/>
+                <parameter name="encounter" description="The encounter associated with the resource."/>
+                <parameter name="guarantor" description="The entity that responsible for payment. It is a required field if the _id or patient fields are not given."/>
+                <parameter name="type" description="The identifier for the account. Required in every search request."/>
+                <parameter name="identifier" description="Statement Account number. Must be set with patients"/>
+                <parameter name="countSearchBy" description=""/>
+            <parameter name="countUpperBound" description="The maximum number of results to return in a page. Not honored when &apos;_id&apos; is set."/>
+                <parameter name="countLowerBound" description="The maximum number of results to return in a page. Not honored when &apos;_id&apos; is set."/>
+                <parameter name="count" description="The maximum number of results to return in a page. Not honored when &apos;_id&apos; is set."/>
+                <parameter name="additionalSearchParameters" description=""/>
+            
+    <sequence>
+        <class name="org.wso2.healthcare.integration.common.ehr.FHIRUrlQueryBuilder">
+            <property name="parameterNames" value="id,patient,encounter,guarantor,type,identifier,countUpperBound,countLowerBound,count,additionalSearchParameters"/>
+        </class>
+        <header name="Accept" scope="transport" value="application/fhir+json" action="set"/>
+        <call>
+            <endpoint>
+                <http method="GET" uri-template="{uri.var.base}/Account{+uri.var.urlQuery}"/>
+            </endpoint>
+        </call>
+        <class name="org.wso2.healthcare.integration.common.ehr.ResponseProcessingHandler"/>
+    </sequence>
+</template>

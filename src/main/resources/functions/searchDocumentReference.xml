@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2024, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+  ~
+  ~ WSO2 Inc. licenses this file to you under the Apache License,
+  ~ Version 2.0 (the "License"); you may not use this file except
+  ~ in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing,
+  ~ software distributed under the License is distributed on an
+  ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  ~ KIND, either express or implied.  See the License for the
+  ~ specific language governing permissions and limitations
+  ~ under the License.
+  -->
+
+<!-- Generated on 17-Fri, 05, 2024 15:05:58+0530 -->
+
+<template xmlns="http://ws.apache.org/ns/synapse" name="searchDocumentReference">
+	<parameter name="enableUrlRewrite" description="Whether to enable/disable URL rewrite in the response payload."/>
+	<parameter name="baseUrl" description="Optional base URL to be replaced in the response."/>
+	<parameter name="serverUrl" description="Public server URL for URL rewrite."/>
+            <parameter name="id" description="A single or comma separated list of DocumentReference ids. It is a required field if the patient field is not given."/>
+                <parameter name="patient" description="The patient the document is about. It is a required field if the subject field is not given."/>
+                <parameter name="encounter" description="The Encounter in which the document was created."/>
+                <parameter name="periodSearchBy" description=""/>
+            <parameter name="periodUpperBound" description="A date range with which to find Documents. If used, the &apos;period&apos; parameter must be provided twice. Once with a &apos;ge&apos; prefix representing the earliest date, and once with a &apos;lt&apos; prefix representing the latest date. The period prefix pair must create a closed range and cannot be equal to each other."/>
+                <parameter name="periodLowerBound" description="A date range with which to find Documents. If used, the &apos;period&apos; parameter must be provided twice. Once with a &apos;ge&apos; prefix representing the earliest date, and once with a &apos;lt&apos; prefix representing the latest date. The period prefix pair must create a closed range and cannot be equal to each other."/>
+                <parameter name="period" description="A date range with which to find Documents. If used, the &apos;period&apos; parameter must be provided twice. Once with a &apos;ge&apos; prefix representing the earliest date, and once with a &apos;lt&apos; prefix representing the latest date. The period prefix pair must create a closed range and cannot be equal to each other."/>
+                <parameter name="countSearchBy" description=""/>
+            <parameter name="countUpperBound" description="The maximum number of results to return in a page."/>
+                <parameter name="countLowerBound" description="The maximum number of results to return in a page."/>
+                <parameter name="count" description="The maximum number of results to return in a page."/>
+                <parameter name="type" description="The kind of document (LOINC if possible)."/>
+                <parameter name="category" description="The categorization of document."/>
+                <parameter name="dateSearchBy" description=""/>
+            <parameter name="dateUpperBound" description="It must be provided  once with a prefix to imply a date  range or without a prefix to search for document(s) at a specific date. Alternately it may be provided twice with `le`, `lt`, `ge`, or `gt` prefixes to search for document(s) within specific range. The date and prefix pairs must create a closed range. For a single &apos;date&apos; occurrence, `time` component is optional but for two `date` occurrences, must include `time` component."/>
+                <parameter name="dateLowerBound" description="It must be provided  once with a prefix to imply a date  range or without a prefix to search for document(s) at a specific date. Alternately it may be provided twice with `le`, `lt`, `ge`, or `gt` prefixes to search for document(s) within specific range. The date and prefix pairs must create a closed range. For a single &apos;date&apos; occurrence, `time` component is optional but for two `date` occurrences, must include `time` component."/>
+                <parameter name="date" description="It must be provided  once with a prefix to imply a date  range or without a prefix to search for document(s) at a specific date. Alternately it may be provided twice with `le`, `lt`, `ge`, or `gt` prefixes to search for document(s) within specific range. The date and prefix pairs must create a closed range. For a single &apos;date&apos; occurrence, `time` component is optional but for two `date` occurrences, must include `time` component."/>
+                <parameter name="lastUpdatedSearchBy" description=""/>
+            <parameter name="lastUpdatedUpperBound" description="A date or date range used to search for Documents which were last updated in that period. The &apos;_lastUpdated&apos; parameter may be provided once without a prefix or time component to imply a date range or once without a prefix and with a time component to search for Documents at a specific time. Alternately it may be provided twice with &apos;le&apos;, &apos;lt&apos;, &apos;ge&apos;, or &apos;gt&apos; prefixes to search for Documents within a specific range. The date and prefix pairs must create a closed range."/>
+                <parameter name="lastUpdatedLowerBound" description="A date or date range used to search for Documents which were last updated in that period. The &apos;_lastUpdated&apos; parameter may be provided once without a prefix or time component to imply a date range or once without a prefix and with a time component to search for Documents at a specific time. Alternately it may be provided twice with &apos;le&apos;, &apos;lt&apos;, &apos;ge&apos;, or &apos;gt&apos; prefixes to search for Documents within a specific range. The date and prefix pairs must create a closed range."/>
+                <parameter name="lastUpdated" description="A date or date range used to search for Documents which were last updated in that period. The &apos;_lastUpdated&apos; parameter may be provided once without a prefix or time component to imply a date range or once without a prefix and with a time component to search for Documents at a specific time. Alternately it may be provided twice with &apos;le&apos;, &apos;lt&apos;, &apos;ge&apos;, or &apos;gt&apos; prefixes to search for Documents within a specific range. The date and prefix pairs must create a closed range."/>
+                <parameter name="additionalSearchParameters" description=""/>
+            
+    <sequence>
+        <class name="org.wso2.healthcare.integration.common.ehr.FHIRUrlQueryBuilder">
+            <property name="parameterNames" value="id,patient,encounter,periodUpperBound,periodLowerBound,period,countUpperBound,countLowerBound,count,type,category,dateUpperBound,dateLowerBound,date,lastUpdatedUpperBound,lastUpdatedLowerBound,lastUpdated,additionalSearchParameters"/>
+        </class>
+        <header name="Accept" scope="transport" value="application/fhir+json" action="set"/>
+        <call>
+            <endpoint>
+                <http method="GET" uri-template="{uri.var.base}/DocumentReference{+uri.var.urlQuery}"/>
+            </endpoint>
+        </call>
+        <class name="org.wso2.healthcare.integration.common.ehr.ResponseProcessingHandler"/>
+    </sequence>
+</template>

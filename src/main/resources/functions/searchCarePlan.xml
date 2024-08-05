@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2024, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+  ~
+  ~ WSO2 Inc. licenses this file to you under the Apache License,
+  ~ Version 2.0 (the "License"); you may not use this file except
+  ~ in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing,
+  ~ software distributed under the License is distributed on an
+  ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  ~ KIND, either express or implied.  See the License for the
+  ~ specific language governing permissions and limitations
+  ~ under the License.
+  -->
+
+<!-- Generated on 17-Fri, 05, 2024 15:05:58+0530 -->
+
+<template xmlns="http://ws.apache.org/ns/synapse" name="searchCarePlan">
+	<parameter name="enableUrlRewrite" description="Whether to enable/disable URL rewrite in the response payload."/>
+	<parameter name="baseUrl" description="Optional base URL to be replaced in the response."/>
+	<parameter name="serverUrl" description="Public server URL for URL rewrite."/>
+            <parameter name="id" description="A single or comma separated list of CarePlan ids."/>
+                <parameter name="dateSearchBy" description=""/>
+            <parameter name="dateUpperBound" description="A date range with which to find CarePlans. If used, the ‘date’ parameter must be provided twice. Once with a &apos;ge&apos; prefix representing the earliest date, and once with a &apos;le’ prefix representing the latest date. The date prefix pair must create a closed range."/>
+                <parameter name="dateLowerBound" description="A date range with which to find CarePlans. If used, the ‘date’ parameter must be provided twice. Once with a &apos;ge&apos; prefix representing the earliest date, and once with a &apos;le’ prefix representing the latest date. The date prefix pair must create a closed range."/>
+                <parameter name="date" description="A date range with which to find CarePlans. If used, the ‘date’ parameter must be provided twice. Once with a &apos;ge&apos; prefix representing the earliest date, and once with a &apos;le’ prefix representing the latest date. The date prefix pair must create a closed range."/>
+                <parameter name="patient" description="Who the careplan is for. It is a required field if the _id field is not given."/>
+                <parameter name="category" description="The category of the careplan. Category assess-plan is supported as of now."/>
+                <parameter name="countSearchBy" description=""/>
+            <parameter name="countUpperBound" description="The maximum number of results to return. Not honored when &apos;_id&apos; is set."/>
+                <parameter name="countLowerBound" description="The maximum number of results to return. Not honored when &apos;_id&apos; is set."/>
+                <parameter name="count" description="The maximum number of results to return. Not honored when &apos;_id&apos; is set."/>
+                <parameter name="additionalSearchParameters" description=""/>
+            
+    <sequence>
+        <class name="org.wso2.healthcare.integration.common.ehr.FHIRUrlQueryBuilder">
+            <property name="parameterNames" value="id,dateUpperBound,dateLowerBound,date,patient,category,countUpperBound,countLowerBound,count,additionalSearchParameters"/>
+        </class>
+        <header name="Accept" scope="transport" value="application/fhir+json" action="set"/>
+        <call>
+            <endpoint>
+                <http method="GET" uri-template="{uri.var.base}/CarePlan{+uri.var.urlQuery}"/>
+            </endpoint>
+        </call>
+        <class name="org.wso2.healthcare.integration.common.ehr.ResponseProcessingHandler"/>
+    </sequence>
+</template>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2024, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+  ~
+  ~ WSO2 Inc. licenses this file to you under the Apache License,
+  ~ Version 2.0 (the "License"); you may not use this file except
+  ~ in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing,
+  ~ software distributed under the License is distributed on an
+  ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  ~ KIND, either express or implied.  See the License for the
+  ~ specific language governing permissions and limitations
+  ~ under the License.
+  -->
+
+<!-- Generated on 17-Fri, 05, 2024 15:05:58+0530 -->
+
+<template xmlns="http://ws.apache.org/ns/synapse" name="searchCondition">
+	<parameter name="enableUrlRewrite" description="Whether to enable/disable URL rewrite in the response payload."/>
+	<parameter name="baseUrl" description="Optional base URL to be replaced in the response."/>
+	<parameter name="serverUrl" description="Public server URL for URL rewrite."/>
+            <parameter name="id" description="A single or comma separated list of Condition ids. It is a required field if the patient or subject fields are not given."/>
+                <parameter name="patient" description="Who has the condition. It is a required field if the subject or _id fields are not given."/>
+                <parameter name="encounter" description="The encounter of the patient. Only encounter-diagnosis are returned."/>
+                <parameter name="subject" description="Who has the condition. It is a required field if the patient or _id fields are not given."/>
+                <parameter name="clinicalStatus" description="The clinical status of the condition."/>
+                <parameter name="category" description="The category of the condition. Categories problem-list-item, encounter-diagnosis and health-concern are supported as of now."/>
+                <parameter name="lastUpdatedSearchBy" description=""/>
+            <parameter name="lastUpdatedUpperBound" description="A date or date range used to search for conditions which were last updated in that period. The &apos;_lastUpdated&apos; parameter may be provided once without a prefix or time component to imply a date range or once without a prefix and with a time component to search for Conditions at a specific time. Alternately it may be provided twice with &apos;le&apos;, &apos;lt&apos;, &apos;ge&apos;, or &apos;gt&apos; prefixes to search for conditions report within a specific range. The date and prefix pairs must create a closed range."/>
+                <parameter name="lastUpdatedLowerBound" description="A date or date range used to search for conditions which were last updated in that period. The &apos;_lastUpdated&apos; parameter may be provided once without a prefix or time component to imply a date range or once without a prefix and with a time component to search for Conditions at a specific time. Alternately it may be provided twice with &apos;le&apos;, &apos;lt&apos;, &apos;ge&apos;, or &apos;gt&apos; prefixes to search for conditions report within a specific range. The date and prefix pairs must create a closed range."/>
+                <parameter name="lastUpdated" description="A date or date range used to search for conditions which were last updated in that period. The &apos;_lastUpdated&apos; parameter may be provided once without a prefix or time component to imply a date range or once without a prefix and with a time component to search for Conditions at a specific time. Alternately it may be provided twice with &apos;le&apos;, &apos;lt&apos;, &apos;ge&apos;, or &apos;gt&apos; prefixes to search for conditions report within a specific range. The date and prefix pairs must create a closed range."/>
+                <parameter name="additionalSearchParameters" description=""/>
+            
+    <sequence>
+        <class name="org.wso2.healthcare.integration.common.ehr.FHIRUrlQueryBuilder">
+            <property name="parameterNames" value="id,patient,encounter,subject,clinicalStatus,category,lastUpdatedUpperBound,lastUpdatedLowerBound,lastUpdated,additionalSearchParameters"/>
+        </class>
+        <header name="Accept" scope="transport" value="application/fhir+json" action="set"/>
+        <call>
+            <endpoint>
+                <http method="GET" uri-template="{uri.var.base}/Condition{+uri.var.urlQuery}"/>
+            </endpoint>
+        </call>
+        <class name="org.wso2.healthcare.integration.common.ehr.ResponseProcessingHandler"/>
+    </sequence>
+</template>

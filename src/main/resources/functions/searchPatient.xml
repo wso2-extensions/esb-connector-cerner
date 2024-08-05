@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2024, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+  ~
+  ~ WSO2 Inc. licenses this file to you under the Apache License,
+  ~ Version 2.0 (the "License"); you may not use this file except
+  ~ in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing,
+  ~ software distributed under the License is distributed on an
+  ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  ~ KIND, either express or implied.  See the License for the
+  ~ specific language governing permissions and limitations
+  ~ under the License.
+  -->
+
+<!-- Generated on 17-Fri, 05, 2024 15:05:58+0530 -->
+
+<template xmlns="http://ws.apache.org/ns/synapse" name="searchPatient">
+	<parameter name="enableUrlRewrite" description="Whether to enable/disable URL rewrite in the response payload."/>
+	<parameter name="baseUrl" description="Optional base URL to be replaced in the response."/>
+	<parameter name="serverUrl" description="Public server URL for URL rewrite."/>
+            <parameter name="id" description="A single or comma separated list of Patient ids. Either the &apos;_id&apos; parameter, or a combination of &apos;identifier&apos;, &apos;birthdate&apos;, &apos;name&apos;, &apos;given&apos;, &apos;family&apos;, &apos;address-postalcode&apos;, &apos;phone&apos;, or &apos;email&apos; parameters must be provided."/>
+                <parameter name="identifier" description="A patient identifier. Either the &apos;_id&apos; parameter, or a combination of &apos;identifier&apos;, &apos;birthdate&apos;, &apos;name&apos;, &apos;given&apos;, &apos;family&apos;, &apos;address-postalcode&apos;, &apos;phone&apos;, or &apos;email&apos; parameters must be provided."/>
+                <parameter name="name" description="The beginning of any name of the patient. Either the &apos;_id&apos; parameter, or a combination of &apos;identifier&apos;, &apos;birthdate&apos;, &apos;name&apos;, &apos;given&apos;, &apos;family&apos;, &apos;address-postalcode&apos;, &apos;phone&apos;, or &apos;email&apos; parameters must be provided."/>
+                <parameter name="given" description="The beginning of the given name of the patient. Either the &apos;_id&apos; parameter, or a combination of &apos;identifier&apos;, &apos;birthdate&apos;, &apos;name&apos;, &apos;given&apos;, &apos;family&apos;, &apos;address-postalcode&apos;, &apos;phone&apos;, or &apos;email&apos; parameters must be provided."/>
+                <parameter name="family" description="The beginning of the family name of the patient. Either the &apos;_id&apos; parameter, or a combination of &apos;identifier&apos;, &apos;birthdate&apos;, &apos;name&apos;, &apos;given&apos;, &apos;family&apos;, &apos;address-postalcode&apos;, &apos;phone&apos;, or &apos;email&apos; parameters must be provided."/>
+                <parameter name="addressPostalcode" description="The postal code of the address of the patient. Either the &apos;_id&apos; parameter, or a combination of &apos;identifier&apos;, &apos;birthdate&apos;, &apos;name&apos;, &apos;given&apos;, &apos;family&apos;, &apos;address-postalcode&apos;, &apos;phone&apos;, or &apos;email&apos; parameters must be provided."/>
+                <parameter name="birthdateSearchBy" description=""/>
+            <parameter name="birthdateUpperBound" description="The date of birth of the patient. Either the &apos;_id&apos; parameter, or a combination of &apos;identifier&apos;, &apos;birthdate&apos;, &apos;name&apos;, &apos;given&apos;, &apos;family&apos;, &apos;address-postalcode&apos;, &apos;phone&apos;, or &apos;email&apos; parameters must be provided."/>
+                <parameter name="birthdateLowerBound" description="The date of birth of the patient. Either the &apos;_id&apos; parameter, or a combination of &apos;identifier&apos;, &apos;birthdate&apos;, &apos;name&apos;, &apos;given&apos;, &apos;family&apos;, &apos;address-postalcode&apos;, &apos;phone&apos;, or &apos;email&apos; parameters must be provided."/>
+                <parameter name="birthdate" description="The date of birth of the patient. Either the &apos;_id&apos; parameter, or a combination of &apos;identifier&apos;, &apos;birthdate&apos;, &apos;name&apos;, &apos;given&apos;, &apos;family&apos;, &apos;address-postalcode&apos;, &apos;phone&apos;, or &apos;email&apos; parameters must be provided."/>
+                <parameter name="phone" description="The value of the phone number of the patient. Either the &apos;_id&apos; parameter, or a combination of &apos;identifier&apos;, &apos;birthdate&apos;, &apos;name&apos;, &apos;given&apos;, &apos;family&apos;, &apos;address-postalcode&apos;, &apos;phone&apos;, or &apos;email&apos; parameters must be provided."/>
+                <parameter name="email" description="The value of the email address of the patient. Either the &apos;_id&apos; parameter, or a combination of &apos;identifier&apos;, &apos;birthdate&apos;, &apos;name&apos;, &apos;given&apos;, &apos;family&apos;, &apos;address-postalcode&apos;, &apos;phone&apos;, or &apos;email&apos; parameters must be provided."/>
+                <parameter name="gender" description="The administrative gender of the patient. Gender may only be provided if another parameter other than &apos;_id&apos; is provided"/>
+                <parameter name="countSearchBy" description=""/>
+            <parameter name="countUpperBound" description="The maximum number of results to return in a page. Not honored when &apos;_id&apos; or &apos;identifier&apos; are set."/>
+                <parameter name="countLowerBound" description="The maximum number of results to return in a page. Not honored when &apos;_id&apos; or &apos;identifier&apos; are set."/>
+                <parameter name="count" description="The maximum number of results to return in a page. Not honored when &apos;_id&apos; or &apos;identifier&apos; are set."/>
+                <parameter name="additionalSearchParameters" description=""/>
+            
+    <sequence>
+        <class name="org.wso2.healthcare.integration.common.ehr.FHIRUrlQueryBuilder">
+            <property name="parameterNames" value="id,identifier,name,given,family,addressPostalcode,birthdateUpperBound,birthdateLowerBound,birthdate,phone,email,gender,countUpperBound,countLowerBound,count,additionalSearchParameters"/>
+        </class>
+        <header name="Accept" scope="transport" value="application/fhir+json" action="set"/>
+        <call>
+            <endpoint>
+                <http method="GET" uri-template="{uri.var.base}/Patient{+uri.var.urlQuery}"/>
+            </endpoint>
+        </call>
+        <class name="org.wso2.healthcare.integration.common.ehr.ResponseProcessingHandler"/>
+    </sequence>
+</template>
